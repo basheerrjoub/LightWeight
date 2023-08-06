@@ -8,6 +8,7 @@ import '../customize/icons.dart';
 import 'discover_card.dart';
 import 'discover_small_card.dart';
 import 'svg_asset.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -21,9 +22,10 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     ScreenUtil.init(context);
     return Scaffold(
-      backgroundColor: Color(0xff121421),
+      backgroundColor: Color(0xff3d1007),
       body: SafeArea(
         child: ListView(
           physics: BouncingScrollPhysics(),
@@ -37,7 +39,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Discover",
+                  Text("Hello ${user.displayName}",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 34.w,
@@ -70,19 +72,19 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     width: 28.w,
                   ),
                   CategoryBoxes(
-                    text: "Insomnia",
+                    text: "Top Workouts",
                     onPressed: (value) => print(value),
                   ),
                   CategoryBoxes(
-                    text: "Depression",
+                    text: "Diet Tips",
                     onPressed: (value) => print(value),
                   ),
                   CategoryBoxes(
-                    text: "Baby Sleep",
+                    text: "BMI",
                     onPressed: (value) => print(value),
                   ),
                   CategoryBoxes(
-                    text: "Insomnia",
+                    text: "Recommendations",
                     onPressed: (value) => print(value),
                   ),
                 ],
@@ -157,31 +159,59 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 children: [
                   DiscoverSmallCard(
                     onTap: (){},
-                    title: "Calming Sounds",
+                    title: "Chest",
                     gradientStartColor: Color(0xff13DEA0),
                     gradientEndColor: Color(0xff06B782),
+                    icon:    SvgAsset(
+                      assetName: AssetName.chest,
+                      height: 58.w,
+                      width: 58.w,
+                    ),
                   ),
                   DiscoverSmallCard(
                     onTap: (){},
-                    title: "Insomnia",
+                    title: "Triceps",
                     gradientStartColor: Color(0xffFC67A7),
                     gradientEndColor: Color(0xffF6815B),
                     icon:    SvgAsset(
+                      assetName: AssetName.triceps,
+                      height: 58.w,
+                      width: 58.w,
+                    ),
+                  ),
+                  DiscoverSmallCard(
+                    onTap: (){
+                    },
+                    title: "Back",
+                    gradientStartColor: Color(0xffFFD541),
+                    gradientEndColor: Color(0xffF0B31A),
+                    icon:    SvgAsset(
+                      assetName: AssetName.backBody,
+                      height: 58.w,
+                      width: 58.w,
+                    ),
+                  ),
+                  DiscoverSmallCard(
+                    onTap: (){},
+                    title: "Biceps",
+                    icon:  SvgAsset(
                       assetName: AssetName.tape,
                       height: 24.w,
                       width: 24.w,
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){
-                    },
-                    title: "For Children",
-                    gradientStartColor: Color(0xffFFD541),
-                    gradientEndColor: Color(0xffF0B31A),
+                    onTap: (){},
+                    title: "Legs",
+                    icon:  SvgAsset(
+                      assetName: AssetName.tape,
+                      height: 24.w,
+                      width: 24.w,
+                    ),
                   ),
                   DiscoverSmallCard(
                     onTap: (){},
-                    title: "Tips For Sleeping",
+                    title: "Abs",
                     icon:  SvgAsset(
                       assetName: AssetName.tape,
                       height: 24.w,

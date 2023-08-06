@@ -21,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   Color enabled = const Color.fromARGB(255, 63, 56, 89);
   Color enabledtxt = Colors.white;
   Color deaible = Colors.grey;
@@ -28,8 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool ispasswordev = true;
   FormData? selected;
 
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController emailController = new TextEditingController(text: "basheer20599@gmail.com");
+  TextEditingController passwordController = new TextEditingController(text: "basheer1234");
 
 
   @override
