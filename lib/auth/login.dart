@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../Animation/Fade_Animation.dart';
 import '../../Colors/Hex_Color.dart';
 import 'forgot_password.dart';
 import 'signup.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../widgets/MainDashBoard.dart';
+import '../customize/show_custom_message.dart';
+import '../models/User.dart';
 
 enum FormData {
   Email,
@@ -26,8 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -59,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Card(
                   elevation: 5,
                   color:
-                  const Color.fromARGB(255, 171, 211, 250).withOpacity(0.4),
+                      const Color.fromARGB(255, 171, 211, 250).withOpacity(0.4),
                   child: Container(
                     width: 400,
                     padding: const EdgeInsets.all(40.0),
@@ -71,7 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         FadeAnimation(
                           delay: 0.8,
-                          child: Image.asset('assets/images/logo1024x1024.png', width: 250, height: 250,),
+                          child: Image.asset(
+                            'assets/images/logo1024x1024.png',
+                            width: 250,
+                            height: 250,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
@@ -167,19 +178,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                   suffixIcon: IconButton(
                                     icon: ispasswordev
                                         ? Icon(
-                                      Icons.visibility_off,
-                                      color: selected == FormData.password
-                                          ? enabledtxt
-                                          : deaible,
-                                      size: 20,
-                                    )
+                                            Icons.visibility_off,
+                                            color: selected == FormData.password
+                                                ? enabledtxt
+                                                : deaible,
+                                            size: 20,
+                                          )
                                         : Icon(
-                                      Icons.visibility,
-                                      color: selected == FormData.password
-                                          ? enabledtxt
-                                          : deaible,
-                                      size: 20,
-                                    ),
+                                            Icons.visibility,
+                                            color: selected == FormData.password
+                                                ? enabledtxt
+                                                : deaible,
+                                            size: 20,
+                                          ),
                                     onPressed: () => setState(
                                             () => ispasswordev = !ispasswordev),
                                   ),
@@ -206,12 +217,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         FadeAnimation(
                           delay: 1,
                           child: TextButton(
-                              onPressed: () {
-                                // Navigator.pop(context);
-                                // Navigator.of(context)
-                                //     .push(MaterialPageRoute(builder: (context) {
-                                //   return MyApp(isLogin: true);
-                                // }));
+                              onPressed: () async {
+                                try {
+                                  UserCredential userCredential =
+                                      await FirebaseAuth
+                                          .instance
+                                          .signInWithEmailAndPassword(
+                                              email: emailController.text.trim(),
+                                              password:
+                                                  passwordController.text.trim());
+                                  //Successful login
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MainDashBoard()));
+                                } on FirebaseAuthException catch (e) {
+                                  //Handing the Authentication Error happens
+                                  if (e.code == 'user-not-found')
+                                    {showCustomSnackBar(context,'No User Found with this email');}
+                                  else if (e.code == 'wrong-password')
+                                    {showCustomSnackBar(context,'Please Enter a Valid Password');}
+                                  else if (e.code == 'invalid-email')
+                                    {showCustomSnackBar(context,'Invalid Email!');}
+                                  else if (e.code == 'user-disabled')
+                                    {showCustomSnackBar(context,'User is Disabled!');}
+                                  else
+                                   { showCustomSnackBar(context,'Can\'t Login!');}
+                                }
                               },
                               child: Text(
                                 "Login",
@@ -228,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       vertical: 14.0, horizontal: 80),
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
-                                      BorderRadius.circular(12.0)))),
+                                          BorderRadius.circular(12.0)))),
                         ),
                       ],
                     ),
