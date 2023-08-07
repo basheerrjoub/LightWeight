@@ -7,21 +7,17 @@ import 'svg_asset.dart';
 import '../models/Exercise.dart';
 import '../models/Exercise_data.dart';
 import 'Exercise_card.dart';
-import 'Exercise_details.dart';
 
-class WorkoutsScreen extends StatefulWidget {
-  final String workoutName;
-  final bool isCardio;
-  final List<Exercise> workout;
-  final String describtion;
+class ExerciseDetailScreen extends StatefulWidget {
+  final Exercise exercise;
 
-  const WorkoutsScreen({this.workoutName = "Default", this.isCardio = false, this.workout = chestWorkout, this.describtion = ' '});
+  const ExerciseDetailScreen({required this.exercise});
 
   @override
-  _WorkoutsScreenState createState() => _WorkoutsScreenState();
+  _ExerciseDetailScreenState createState() => _ExerciseDetailScreenState();
 }
 
-class _WorkoutsScreenState extends State<WorkoutsScreen> {
+class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   bool? isHeartIconTapped = false;
 
   @override
@@ -40,10 +36,10 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 28.w),
                   child: Hero(
-                    tag: "WorkoutName",
+                    tag: "ExerciseName",
                     child: Material(
                       color: Colors.transparent,
-                      child: Text("${widget.workoutName} Workout",
+                      child: Text("${widget.exercise.name}",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 34.w,
@@ -54,57 +50,10 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 28.w),
-                  child: Text(
-                    "Following are set of Exercises, that are focused on the ${widget.workoutName} area",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16.w),
-                  ),
-                ),
+
 
                 SizedBox(height: 32.h),
-                Padding(
-                  padding: EdgeInsets.only(left: 28.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 56.w,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withOpacity(0.1),
-                        ),
-                        child: Center(
-                            child: widget.isCardio?
-                            SvgAsset(
-                                assetName: AssetName.cardio,
-                                height: 28.w,
-                                width: 28.w): SvgAsset(
-                                assetName: AssetName.bodybuilding,
-                                height: 28.w,
-                                width: 28.w) ),
-                      ),
-                      SizedBox(width: 16.w),
-                      Container(
-                        height: 56.w,
-                        width: 56.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withOpacity(0.1),
-                        ),
-                        child: Center(
-                            child: SvgAsset(
-                                assetName: AssetName.workout,
-                                height: 28.w,
-                                width: 28.w)),
-                      ),
-                    ],
-                  ),
-                ),
+
                 Container(
                   height: 50,
                   width: double.infinity,
@@ -121,31 +70,16 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                     ),
                   ),
                   child: Text(
-                    "Exercises",
+                    "How to Do it?",
                     style: TextStyle(color: Colors.white, fontSize: 30.w, fontFamily: "ROYALMOSCOW"),
                   ),
                 ),
-                GridView.builder(
-                  padding: const EdgeInsets.all(8.0),
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,  // Number of cards in a row
-                    childAspectRatio: 0.8,  // Adjust based on your design preference
-                    mainAxisSpacing: 8.0,   // Spacing between rows
-                    crossAxisSpacing: 8.0,  // Spacing between cards
-                  ),
-                  itemCount: chestWorkout.length,
-                  itemBuilder: (context, index) {
-                    return ExerciseCard(exercise: chestWorkout[index],onTap: () {
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: chestWorkout[index],)),
-                      );
-                    },);
-                  },
+                SizedBox(height: 20.h),
+                Image.network(
+                  widget.exercise.image,
+                  fit: BoxFit.cover,
                 ),
+
 
                 SizedBox(height: 30.h),
                 Container(
@@ -172,13 +106,81 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 28.w, right: 28.w, bottom: 80.h),
                   child: Text(
-                    "${widget.describtion}",
+                    "${widget.exercise.description}",
                     style: TextStyle(
-                        color: Color(0xffffffff).withOpacity(0.7),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16.w),
+                        color: Colors.white,
+                        fontFamily: "OnelySans",
+                        fontSize: 18.w),
                   ),
-                )
+                ),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color(0xFF5E1508),
+                        Color(0xFFC23019),
+                        Color(0xFF5E1508),
+                      ],
+                    ),
+                  ),
+                  child: Text(
+                    "How Many?",
+                    style: TextStyle(color: Colors.white, fontSize: 30.w, fontFamily: "ROYALMOSCOW"),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 28.w, right: 28.w, bottom: 80.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            "Sets",
+                            style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 20.w, fontFamily: "ROYALMOSCOW"),
+                          ),
+                          SizedBox(height: 4.h),
+                          Text(
+                            "${widget.exercise.sets}",
+                            style: TextStyle(color: Colors.white, fontSize: 30.w, fontFamily: "ROYALMOSCOW", fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 2.h),
+                          Container(
+                            width: 80.w,
+                            height: 3.h,
+                            color: Colors.white, // Or any other color that matches your design
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            "Reps",
+                            style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 20.w, fontFamily: "ROYALMOSCOW"),
+                          ),
+                          SizedBox(height: 4.h),
+                          Text(
+                            "${widget.exercise.repetitions}",
+                            style: TextStyle(color: Colors.white, fontSize: 30.w, fontFamily: "ROYALMOSCOW", fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 2.h),
+                          Container(
+                            width: 80.w,
+                            height: 3.h,
+                            color: Colors.white, // Or any other color that matches your design
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+
+                ),
               ],
             ),
 
