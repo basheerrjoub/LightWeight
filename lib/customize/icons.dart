@@ -31,6 +31,10 @@ class MeditationSvgAssets {
     AssetName.workout: "assets/icons/workout.svg",
     AssetName.bodybuilding: "assets/icons/bodybuilding.svg",
     AssetName.cardio: "assets/icons/cardio.svg",
+    AssetName.diet: "assets/icons/diet.svg",
+    AssetName.favourite: "assets/icons/favourite.svg",
+    AssetName.bmi: "assets/icons/bmi.svg",
+    AssetName.bulb: "assets/icons/bulb.svg",
 
   };
 }
@@ -58,6 +62,10 @@ enum AssetName {
   forearms,
   workout,
   bodybuilding,
-  cardio
+  cardio,
+  diet,
+  favourite,
+  bmi,
+  bulb
 
 }

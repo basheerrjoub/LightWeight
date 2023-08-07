@@ -64,13 +64,23 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ],
                   ),
                   child: Center(
-                    child: Text(
-                      "Diet",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontFamily: "ONELYSANS"
-                      ),
+                    child: Row(
+                      children: [
+                        SvgAsset(
+                          assetName: AssetName.diet,
+                          height: 25.w,
+                          width: 25.w,
+                        ),
+                        SizedBox(width: 5.w,),
+                        Text(
+                          "Diet",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontFamily: "ONELYSANS"
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -92,13 +102,23 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         ],
                       ),
                       child: Center(
-                        child: Text(
-                          "Preffered Workouts",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontFamily: "ONELYSANS"
-                          ),
+                        child: Row(
+                          children: [
+                            SvgAsset(
+                              assetName: AssetName.favourite,
+                              height: 25.w,
+                              width: 25.w,
+                            ),
+                            SizedBox(width: 5.w,),
+                            Text(
+                              "Favourite Exercises",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontFamily: "ONELYSANS"
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -120,13 +140,23 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         ],
                       ),
                       child: Center(
-                        child: Text(
-                          "BMI Calculator",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontFamily: "ONELYSANS"
-                          ),
+                        child: Row(
+                          children: [
+                            SvgAsset(
+                              assetName: AssetName.bmi,
+                              height: 25.w,
+                              width: 25.w,
+                            ),
+                            SizedBox(width: 5.w,),
+                            Text(
+                              "BMI",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontFamily: "ONELYSANS"
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -148,13 +178,23 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         ],
                       ),
                       child: Center(
-                        child: Text(
-                          "Tips",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontFamily: "ONELYSANS"
-                          ),
+                        child: Row(
+                          children: [
+                            SvgAsset(
+                              assetName: AssetName.bulb,
+                              height: 25.w,
+                              width: 25.w,
+                            ),
+                            SizedBox(width: 5.w,),
+                            Text(
+                              "Tips",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontFamily: "ONELYSANS"
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
