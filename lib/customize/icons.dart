@@ -23,6 +23,14 @@ class MeditationSvgAssets {
     AssetName.chest: "assets/icons/chest.svg",
     AssetName.triceps: "assets/icons/triceps.svg",
     AssetName.backBody: "assets/icons/backBody.svg",
+    AssetName.biceps: "assets/icons/biceps.svg",
+    AssetName.legs: "assets/icons/legs.svg",
+    AssetName.abs: "assets/icons/abs.svg",
+    AssetName.shoulders: "assets/icons/shoulders.svg",
+    AssetName.forearms: "assets/icons/forearms.svg",
+    AssetName.workout: "assets/icons/workout.svg",
+    AssetName.bodybuilding: "assets/icons/bodybuilding.svg",
+    AssetName.cardio: "assets/icons/cardio.svg",
 
   };
 }
@@ -42,6 +50,14 @@ enum AssetName {
   profile,
   chest,
   triceps,
-  backBody
+  backBody,
+  biceps,
+  legs,
+  abs,
+  shoulders,
+  forearms,
+  workout,
+  bodybuilding,
+  cardio
 
 }

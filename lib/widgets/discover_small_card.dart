@@ -69,7 +69,7 @@ class DiscoverSmallCard extends StatelessWidget {
                     SizedBox(
                       child: SvgAsset(
                           height: 125.w,
-                          width: 150.w,
+                          width: 50.w,
                           fit: BoxFit.fitHeight,
                           assetName: AssetName.vectorSmallTop),
                     ),

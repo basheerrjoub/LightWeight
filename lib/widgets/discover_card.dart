@@ -15,6 +15,7 @@ class DiscoverCard extends StatelessWidget {
   final Widget? vectorTop;
   final Function? onTap;
   final String? tag;
+  final bool isCardio;
   const DiscoverCard(
       {Key? key,
         this.title,
@@ -26,7 +27,9 @@ class DiscoverCard extends StatelessWidget {
         this.vectorBottom,
         this.vectorTop,
         this.onTap,
-        this.tag})
+        this.tag,
+        this.isCardio = false
+      })
       : super(key: key);
 
   @override
@@ -57,7 +60,7 @@ class DiscoverCard extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(26),
                       child: SvgAsset(
-                          height: 176.w,
+                          height: 76.w,
                           width: 305.w,
                           assetName: AssetName.vectorBottom),
                     ),
@@ -85,8 +88,9 @@ class DiscoverCard extends StatelessWidget {
                               child: Text(
                                 title!,
                                 style: TextStyle(
-                                    fontSize: 22.w,
+                                    fontSize: 24.w,
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: "OnelySans",
                                     color: Colors.white),
                               ),
                             ),
@@ -98,7 +102,7 @@ class DiscoverCard extends StatelessWidget {
                               ? Text(
                             subtitle!,
                             style: TextStyle(
-                                fontSize: 16.w,
+                                fontSize: 17.w,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white),
                           )
@@ -108,15 +112,19 @@ class DiscoverCard extends StatelessWidget {
                       Row(
                         children: [
                           SvgAsset(
-                            assetName: AssetName.headphone,
-                            height: 24.w,
-                            width: 24.w,
+                            assetName: AssetName.workout,
+                            height: 30.w,
+                            width: 30.w,
                           ),
                           SizedBox(width: 24.w),
-                          SvgAsset(
-                            assetName: AssetName.tape,
-                            height: 24.w,
-                            width: 24.w,
+                          isCardio ? SvgAsset(
+                            assetName: AssetName.cardio,
+                            height: 30.w,
+                            width: 30.w,
+                          ): SvgAsset(
+                            assetName: AssetName.bodybuilding,
+                            height: 30.w,
+                            width: 30.w,
                           ),
                         ],
                       )

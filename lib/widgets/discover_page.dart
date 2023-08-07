@@ -30,86 +30,154 @@ class _DiscoverPageState extends State<DiscoverPage> {
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: 28.w,
-                right: 18.w,
-                top: 36.h,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Hello ${user.displayName}",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 34.w,
-                          fontWeight: FontWeight.bold)),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(360),
-                    onTap: onSearchIconTapped,
-                    child: Container(
-                      height: 35.w,
-                      width: 35.w,
-                      child: Center(
-                        child: SvgAsset(
-                          assetName: AssetName.search,
-                          height: 24.w,
-                          width: 24.w,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Container(child: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Image(image: AssetImage("assets/images/dashboardLogo.png"),),
+            ),),
             Container(
-              height: 120.h,
+              height: 70.h,
+              margin: EdgeInsets.only(top:20),
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 children: [
                   SizedBox(
-                    width: 28.w,
+                    width: 10.w,
                   ),
-                  CategoryBoxes(
-                    text: "Top Workouts",
-                    onPressed: (value) => print(value),
+              GestureDetector(
+                onTap: null,
+                child: Container(
+                  padding: EdgeInsets.all(12),
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFA61400),
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 6.0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  CategoryBoxes(
-                    text: "Diet Tips",
-                    onPressed: (value) => print(value),
+                  child: Center(
+                    child: Text(
+                      "Diet",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontFamily: "ONELYSANS"
+                      ),
+                    ),
                   ),
-                  CategoryBoxes(
-                    text: "BMI",
-                    onPressed: (value) => print(value),
+                ),
+              ),
+                  GestureDetector(
+                    onTap: null,
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFA61400),
+                        borderRadius: BorderRadius.circular(12.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 6.0,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Preffered Workouts",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontFamily: "ONELYSANS"
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  CategoryBoxes(
-                    text: "Recommendations",
-                    onPressed: (value) => print(value),
+                  GestureDetector(
+                    onTap: null,
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFA61400),
+                        borderRadius: BorderRadius.circular(12.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 6.0,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          "BMI Calculator",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontFamily: "ONELYSANS"
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
+                  GestureDetector(
+                    onTap: null,
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFA61400),
+                        borderRadius: BorderRadius.circular(12.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 6.0,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Tips",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontFamily: "ONELYSANS"
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Recommended",
-                    style: TextStyle(
-                        color: Color(0xff515979),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.w),
-                  ),
-                  GestureDetector(
-                      onTap: onSeeAllTapped,
-                      child: Text("See All",
-                          style: TextStyle(
-                              color: Color(0xff4A80F0),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14.w)))
-                ],
+            Container(
+              height: 50,
+              width: double.infinity,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF5E1508),
+                    Color(0xFFC23019),
+                    Color(0xFF5E1508),
+                  ],
+                ),
+              ),
+              child: Text(
+                "Routines",
+                style: TextStyle(color: Colors.white, fontSize: 30.w, fontFamily: "ROYALMOSCOW"),
               ),
             ),
             SizedBox(
@@ -123,31 +191,62 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 children: [
                   SizedBox(width: 28.w),
                   DiscoverCard(
-                    tag: "sleepMeditation",
-                    onTap: onSleepMeditationTapped,
-                    title: "Sleep Meditation",
-                    subtitle: "7 Day Audio and Video Series",
+                    tag: "sixDaysRoutine",
+                    onTap: null,
+                    title: "Six Days Routine",
+                    subtitle: "One of the Best training shcedules",
+                    gradientStartColor: Color(0xff911700),
+                    gradientEndColor: Color(0x19bdff3a),
                   ),
                   SizedBox(width: 20.w),
                   DiscoverCard(
-                    onTap: onDepressionHealingTapped,
-                    title: "Depression Healing",
+                    onTap: null,
+                    tag: "fourDaysRoutine",
+                    title: "Four Day Routine",
+                    subtitle: "Four Day Routine",
+                    gradientStartColor: Color(0xc31432A7),
+                    gradientEndColor: Color(0xc3148ca7),
+                  ),
+                  SizedBox(width: 20.w),
+                  DiscoverCard(
+                    onTap: null,
+                    tag: "twoDaysRoutine",
+                    title: "Two Days Routine",
+                    subtitle: "Two Day Routine",
+                    gradientStartColor: Color(0xc31432A7),
+                    gradientEndColor: Color(0xc3148ca7),
+                  ),
+                  SizedBox(width: 20.w),
+                  DiscoverCard(
+                    onTap: null,
+                    isCardio: true,
+                    title: "Cardio Workouts",
                     subtitle: "10 Days Audio and Video Series",
-                    gradientStartColor: Color(0xffFC67A7),
-                    gradientEndColor: Color(0xffF6815B),
+                    gradientStartColor: Color(0xc31432A7),
+                    gradientEndColor: Color(0xc3148ca7),
                   ),
                 ],
               ),
             ),
             SizedBox(height: 28.h),
-            Padding(
-              padding: EdgeInsets.only(left: 28.w),
+            Container(
+              height: 50,
+              width: double.infinity,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF5E1508),
+                    Color(0xFFC23019),
+                    Color(0xFF5E1508),
+                  ],
+                ),
+              ),
               child: Text(
-                "Recent",
-                style: TextStyle(
-                    color: Color(0xff515979),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.w),
+                "Workouts",
+                style: TextStyle(color: Colors.white, fontSize: 30.w, fontFamily: "ROYALMOSCOW"),
               ),
             ),
             SizedBox(height: 16.h),
@@ -158,7 +257,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const DetailPage()),
+                      );
+                    },
                     title: "Chest",
                     gradientStartColor: Color(0xff13DEA0),
                     gradientEndColor: Color(0xff06B782),
@@ -194,28 +298,57 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   DiscoverSmallCard(
                     onTap: (){},
                     title: "Biceps",
+                    gradientStartColor: Color(0xf23ac033),
+                    gradientEndColor: Color(0x1141ca33),
                     icon:  SvgAsset(
-                      assetName: AssetName.tape,
-                      height: 24.w,
-                      width: 24.w,
+                      assetName: AssetName.biceps,
+                      height: 58.w,
+                      width: 58.w,
                     ),
+
                   ),
                   DiscoverSmallCard(
                     onTap: (){},
                     title: "Legs",
+                    gradientStartColor: Color(0xf23ac033),
+                    gradientEndColor: Color(0x1141ca33),
                     icon:  SvgAsset(
-                      assetName: AssetName.tape,
-                      height: 24.w,
-                      width: 24.w,
+                      assetName: AssetName.legs,
+                      height: 58.w,
+                      width: 60.w,
                     ),
                   ),
                   DiscoverSmallCard(
                     onTap: (){},
                     title: "Abs",
+                    gradientStartColor: Color(0x19ffb8ad),
+                    gradientEndColor: Color(0xe4ff0044),
                     icon:  SvgAsset(
-                      assetName: AssetName.tape,
-                      height: 24.w,
-                      width: 24.w,
+                      assetName: AssetName.abs,
+                      height: 58.w,
+                      width: 58.w,
+                    ),
+                  ),
+                  DiscoverSmallCard(
+                    onTap: (){},
+                    title: "Shoulders",
+                    gradientStartColor: Color(0xfe0f0133),
+                    gradientEndColor: Color(0xFF38A4F3),
+                    icon:  SvgAsset(
+                      assetName: AssetName.shoulders,
+                      height: 40.w,
+                      width: 75.w,
+                    ),
+                  ),
+                  DiscoverSmallCard(
+                    onTap: (){},
+                    title: "Forearms",
+                    gradientStartColor: Color(0x1141ca33),
+                    gradientEndColor: Color(0xbd732733),
+                    icon:  SvgAsset(
+                      assetName: AssetName.forearms,
+                      height: 40.w,
+                      width: 75.w,
                     ),
                   ),
                 ],
@@ -229,16 +362,5 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 
 
-  void onSeeAllTapped() {
-  }
 
-  void onSleepMeditationTapped() {
-    Get.to(()=> DetailPage(), transition: Transition.rightToLeft);
-  }
-
-  void onDepressionHealingTapped() {
-  }
-
-  void onSearchIconTapped() {
-  }
 }

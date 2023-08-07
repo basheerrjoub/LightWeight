@@ -40,6 +40,9 @@ flutter:
     - family: ROYALMOSCOW
       fonts:
         - asset: assets/fonts/ROYALMOSCOW.ttf
+    - family: ONELYSANS
+      fonts:
+          - asset: assets/fonts/OnelySans.ttf
 
   assets:
     - assets/images/

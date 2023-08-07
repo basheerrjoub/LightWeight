@@ -47,19 +47,19 @@ class _MainDashBoardState extends State<MainDashBoard> {
             BottomNavigationBarItem(
               icon: SvgAsset(assetName: AssetName.discover),
               label: '',
-              tooltip: 'Discover',
+              tooltip: 'Home',
               activeIcon: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff4A80F0).withOpacity(0.3),
+                        color: Color(0xffa61700).withOpacity(0.3),
                         offset: Offset(0, 4),
                         blurRadius: 20),
                   ],
                 ),
                 child: SvgAsset(
-                    assetName: AssetName.discover, color: Color(0xff4A80F0)),
+                    assetName: AssetName.discover, color: Color(0xffa61700)),
               ),
             ),
             BottomNavigationBarItem(
@@ -71,14 +71,14 @@ class _MainDashBoardState extends State<MainDashBoard> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff4A80F0).withOpacity(0.3),
+                        color: Color(0xffa61700).withOpacity(0.3),
                         offset: Offset(0, 4),
                         blurRadius: 20),
                   ],
                 ),
                 child: SvgAsset(
                   assetName: AssetName.chart,
-                  color: Color(0xff4A80F0),
+                  color: Color(0xffa61700),
                 ),
               ),
             ),
@@ -91,14 +91,14 @@ class _MainDashBoardState extends State<MainDashBoard> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff4A80F0).withOpacity(0.3),
+                        color: Color(0xffa61700).withOpacity(0.3),
                         offset: Offset(0, 4),
                         blurRadius: 20),
                   ],
                 ),
                 child: SvgAsset(
                   assetName: AssetName.profile,
-                  color: Color(0xff4A80F0),
+                  color: Color(0xffa61700),
                 ),
               ),
             ),

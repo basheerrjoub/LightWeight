@@ -8,7 +8,7 @@ class ChartsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff121421),
-      body: Container(),
+      body: Container(child: Text("Charts Page", style: TextStyle(color: Colors.white),),),
     );
   }
 }
