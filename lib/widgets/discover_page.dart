@@ -9,6 +9,9 @@ import 'discover_card.dart';
 import 'discover_small_card.dart';
 import 'svg_asset.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'workouts_screen.dart';
+import '../models/Exercise.dart';
+import '../models/Exercise_data.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -260,7 +263,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     onTap: (){//DetailPage
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const DetailPage()),
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Chest", workout: chestWorkout, describtion: "Chest strength is about more than physical definition—strong pectoral muscles can help improve posture, benefit breathing and support the surrounding muscles and joints. While building muscle can take time, developing a strong chest doesn’t have to be time-consuming",)),
                       );
                     },
                     title: "Chest",
