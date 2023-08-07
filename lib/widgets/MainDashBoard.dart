@@ -5,6 +5,7 @@ import 'discover_page.dart';
 import '../customize/icons.dart';
 import 'profile_page.dart';
 import 'svg_asset.dart';
+
 class MainDashBoard extends StatefulWidget {
   const MainDashBoard({Key? key}) : super(key: key);
 
