@@ -13,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   @override
   Widget build(BuildContext context) {
     final firebaseUser = FirebaseAuth.instance.currentUser;
@@ -24,6 +25,23 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         children: [
           AppBar(
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: GestureDetector(
+                  onTap: (){
+                    FirebaseAuth.instance.signOut();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                  child: Row(
+                    children: [
+                      Text('Logout ', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
+                      Icon(Icons.login, color: Colors.white,),
+                    ],
+                  ),
+                ), // Adjust height as needed
+              ),
+            ],
             backgroundColor: Color(0xFF440C00),
             elevation: 4.0,
             toolbarHeight: 56.0,

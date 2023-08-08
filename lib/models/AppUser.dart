@@ -3,11 +3,17 @@ class AppUser {
   String uid;
   String name;
   String email;
+  String weight;
+  String height;
+  String age;
   // Constructor
   AppUser({
     required this.uid,
     required this.name,
     required this.email,
+    required this.weight,
+    required this.height,
+    required this.age,
   });
 
   // Factory constructor to create an AppUser instance from a Firebase User
@@ -20,6 +26,9 @@ class AppUser {
       uid: firebaseUser.uid,
       name: firebaseUser.displayName ?? '',
       email: firebaseUser.email ?? '',
+      weight:  '',
+      height:  '',
+      age:  '',
     );
   }
 }

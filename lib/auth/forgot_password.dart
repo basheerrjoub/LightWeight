@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'pin_code.dart';
 import '../../Animation/Fade_Animation.dart';
 import '../../Colors/Hex_Color.dart';
-import 'forgot_password.dart';
-import 'signup.dart';
 import 'login.dart';
+
 enum FormData { Email }
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -19,10 +19,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Color deaible = Colors.grey;
   Color backgroundColor = const Color(0xFF1F1A30);
   bool ispasswordev = true;
+  final _formKey = GlobalKey<FormState>();
 
   FormData? selected;
 
   TextEditingController emailController = new TextEditingController();
+
+  Future resetPassword() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      e.printError();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +67,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Card(
                   elevation: 5,
                   color:
-                  const Color.fromARGB(255, 171, 211, 250).withOpacity(0.4),
+                      const Color.fromARGB(255, 171, 211, 250).withOpacity(0.4),
                   child: Container(
                     width: 400,
                     padding: const EdgeInsets.all(40.0),
@@ -69,7 +79,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       children: [
                         FadeAnimation(
                           delay: 0.8,
-                          child: Image.asset('assets/images/logo1024x1024.png', width: 250, height: 250,),
+                          child: Image.asset(
+                            'assets/images/logo1024x1024.png',
+                            width: 250,
+                            height: 250,
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
@@ -92,46 +106,65 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           delay: 1,
                           child: Container(
                             width: 300,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
-                              color: selected == FormData.Email
-                                  ? enabled
-                                  : backgroundColor,
-                            ),
                             padding: const EdgeInsets.all(5.0),
-                            child: TextField(
-                              controller: emailController,
-                              onTap: () {
-                                setState(() {
-                                  selected = FormData.Email;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                enabledBorder: InputBorder.none,
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                  color: selected == FormData.Email
-                                      ? enabledtxt
-                                      : deaible,
-                                  size: 20,
-                                ),
-                                hintText: 'Email',
-                                hintStyle: TextStyle(
-                                    color: selected == FormData.Email
-                                        ? enabledtxt
-                                        : deaible,
-                                    fontSize: 12),
-                              ),
-                              textAlignVertical: TextAlignVertical.center,
-                              style: TextStyle(
-                                  color: selected == FormData.Email
-                                      ? enabledtxt
-                                      : deaible,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12),
-                            ),
+                            child: Form(
+                                key: _formKey,
+                                child: TextFormField(
+                                  controller: emailController,
+                                  onTap: () {
+                                    setState(() {
+                                      selected = FormData.Email;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter an email';
+                                    } else if (!RegExp(
+                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(value)) {
+                                      return 'Please enter a valid email address';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 15),
+                                    hintText: 'Email',
+                                    hintStyle: TextStyle(
+                                        color: selected == FormData.Email
+                                            ? enabledtxt
+                                            : Colors.white,
+                                        fontSize: 12),
+                                    errorStyle: TextStyle(color: Colors.red),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: enabled, width: 2.0),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: selected == FormData.Email
+                                              ? enabled
+                                              : Colors.white,
+                                          width: 2.0),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.email_outlined,
+                                      color: selected == FormData.Email
+                                          ? enabledtxt
+                                          : Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  style: TextStyle(
+                                      color: selected == FormData.Email
+                                          ? enabledtxt
+                                          : deaible,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
+                                )),
                           ),
                         ),
                         const SizedBox(
@@ -141,13 +174,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           delay: 1,
                           child: TextButton(
                               onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  return const PinCodeVerificationScreen(
-                                    email: '0102756960',
+                                if (_formKey.currentState!.validate()) {
+                                  resetPassword();
+                                  Navigator.pop(context);
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PinCodeVerificationScreen(
+                                        email: emailController.text.trim(),
+                                      ),
+                                    ),
                                   );
-                                }));
+                                }
                               },
                               child: Text(
                                 "Continue",
@@ -164,7 +202,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       vertical: 14.0, horizontal: 80),
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
-                                      BorderRadius.circular(12.0)))),
+                                          BorderRadius.circular(12.0)))),
                         ),
                       ],
                     ),
