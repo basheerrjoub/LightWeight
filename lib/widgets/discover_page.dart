@@ -13,6 +13,7 @@ import 'workouts_screen.dart';
 import '../models/Exercise.dart';
 import '../models/Exercise_data.dart';
 import '../AppConstants.dart';
+import 'top_slider/BMI.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -125,7 +126,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  BMI()),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(12),
                       margin: EdgeInsets.all(10),
