@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lightweight/AppConstants.dart';
 import '../../Animation/Fade_Animation.dart';
 import '../../Colors/Hex_Color.dart';
 import 'forgot_password.dart';
@@ -9,6 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/MainDashBoard.dart';
 import '../customize/show_custom_message.dart';
 import '../models/AppUser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 enum FormData {
   Email,
@@ -31,6 +34,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController emailController = new TextEditingController(text: "basheer20599@gmail.com");
   TextEditingController passwordController = new TextEditingController(text: "basheer1234");
+
+  Future getUserData() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      DocumentSnapshot docSnapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).get();
+
+      if (docSnapshot.exists) {
+        Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+
+        AppConstants.currentUser =  AppUser(
+          uid: currentUser.uid,
+          name: data['name'] as String,
+          email: data['email'] as String,
+          weight: int.parse(data['weight'].toString()),
+          height: int.parse(data['height'].toString()),
+          age: int.parse(data['age'].toString()),
+          gender: data['gender'] as String,
+        );
+      }
+    }
+  }
 
 
   @override
@@ -228,6 +252,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   passwordController.text.trim());
                                   //Successful login
+                                  await getUserData();
+                                  print(AppConstants.currentUser.toString());
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>

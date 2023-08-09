@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'profile_widgets/edit_name.dart';
+import 'profile_widgets/edit_age.dart';
+import 'profile_widgets/edit_height.dart';
+import 'profile_widgets/edit_weight.dart';
 import '../models/AppUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import '../widgets/MainDashBoard.dart';
+import 'package:lightweight/AppConstants.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -13,12 +16,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = FirebaseAuth.instance.currentUser;
-    final user = AppUser.fromFirebaseUser(firebaseUser);
-    print('User Name: ${user.name}');
+    AppUser user = AppConstants.currentUser!;
 
     return Scaffold(
       backgroundColor: Color(0xFF5E251C),
@@ -66,13 +66,29 @@ class _ProfilePageState extends State<ProfilePage> {
             child: buildUserInfoDisplay(user.name, 'Name', EditNameFormPage(user: user)),
           ),
 
+
           SizedBox(height: 20),
           InkWell(
             onTap: () {
               // handle tap
             },
-            child: buildUserInfoDisplay(user.name, 'Email', EditNameFormPage(user: user)),
-          )
+            child: buildUserInfoDisplay(user.age.toString(), 'Age', EditAgeFormPage(user: user)),
+          ),
+          SizedBox(height: 40),
+          InkWell(
+            onTap: () {
+              // handle tap
+            },
+            child: buildUserInfoDisplay(user.height.toString(), 'Height', EditHeightFormPage(user: user)),
+          ),
+
+          SizedBox(height: 40),
+          InkWell(
+            onTap: () {
+              // handle tap
+            },
+            child: buildUserInfoDisplay(user.weight.toString(), 'Weight', EditWeightFormPage(user: user)),
+          ),
 
         ],
       ),

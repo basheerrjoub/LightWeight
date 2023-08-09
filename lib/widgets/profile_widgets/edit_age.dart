@@ -6,41 +6,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // This class handles the Page to edit the Name Section of the User Profile.
-class EditNameFormPage extends StatefulWidget {
+class EditAgeFormPage extends StatefulWidget {
   final AppUser user;
 
 
-  const EditNameFormPage({required this.user}) ;
+  const EditAgeFormPage({required this.user}) ;
 
   @override
-  EditNameFormPageState createState() {
-    return EditNameFormPageState();
+  EditAgeFormPageState createState() {
+    return EditAgeFormPageState();
   }
 }
 
-class EditNameFormPageState extends State<EditNameFormPage> {
+class EditAgeFormPageState extends State<EditAgeFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final displayNameController = TextEditingController();
+  final displayAgeController = TextEditingController();
   final firebaseUser = FirebaseAuth.instance.currentUser;
 
 
   @override
   void dispose() {
-    displayNameController.dispose();
+    displayAgeController.dispose();
     super.dispose();
   }
 
-  void updateUserValue(String name) async {
-    widget.user.name = name;
-
-    await firebaseUser?.updateDisplayName(name);
-
-    // Update the name in Firestore
+  void updateUserValue(String age) async {
+    widget.user.age = int.parse(age);
+    // Update the age in Firestore
     if(firebaseUser != null) {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(firebaseUser!.uid)
-          .update({'name': name});
+          .update({'age': age});
     }
   }
 
@@ -66,7 +63,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                   );
                 },
               ),
-              title: Text('Edit Name', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
+              title: Text('Edit Age', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
             ),
             SizedBox(height: 30,),
             Form(
@@ -77,7 +74,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                 children: <Widget>[
                   Center(
                       child: const Text(
-                        "What's Your Name?",
+                        "What's Your Age?",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -87,16 +84,17 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                       child: Container(
                         width: 300,
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
                           // Handles Form Validation for First Name
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your name';
+                              return 'Please enter your age';
                             } else
-                            return null;
+                              return null;
                           },
                           decoration:
-                              InputDecoration(icon: Icon(Icons.person_2),labelText: 'Display  Name'),
-                          controller: displayNameController,
+                          InputDecoration(icon: Icon(Icons.person_2),labelText: 'Age'),
+                          controller: displayAgeController,
                         ),
                       )),
                   Padding(
@@ -110,7 +108,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               onPressed: () {
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate()) {
-                                  updateUserValue(displayNameController.text);
+                                  updateUserValue(displayAgeController.text);
                                   Navigator.pop(context);
                                 }
                               },

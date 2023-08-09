@@ -5,42 +5,38 @@ import '../../models/AppUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// This class handles the Page to edit the Name Section of the User Profile.
-class EditNameFormPage extends StatefulWidget {
+class EditHeightFormPage extends StatefulWidget {
   final AppUser user;
 
 
-  const EditNameFormPage({required this.user}) ;
+  const EditHeightFormPage({required this.user}) ;
 
   @override
-  EditNameFormPageState createState() {
-    return EditNameFormPageState();
+  EditHeightFormPageState createState() {
+    return EditHeightFormPageState();
   }
 }
 
-class EditNameFormPageState extends State<EditNameFormPage> {
+class EditHeightFormPageState extends State<EditHeightFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final displayNameController = TextEditingController();
+  final displayHeightController = TextEditingController();
   final firebaseUser = FirebaseAuth.instance.currentUser;
 
 
   @override
   void dispose() {
-    displayNameController.dispose();
+    displayHeightController.dispose();
     super.dispose();
   }
 
-  void updateUserValue(String name) async {
-    widget.user.name = name;
-
-    await firebaseUser?.updateDisplayName(name);
-
-    // Update the name in Firestore
+  void updateUserValue(String height) async {
+    widget.user.height = int.parse(height);
+    // Update the height in Firestore
     if(firebaseUser != null) {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(firebaseUser!.uid)
-          .update({'name': name});
+          .update({'height': height});
     }
   }
 
@@ -66,7 +62,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                   );
                 },
               ),
-              title: Text('Edit Name', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
+              title: Text('Edit Height', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
             ),
             SizedBox(height: 30,),
             Form(
@@ -77,7 +73,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                 children: <Widget>[
                   Center(
                       child: const Text(
-                        "What's Your Name?",
+                        "What's Your Height?",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -87,16 +83,16 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                       child: Container(
                         width: 300,
                         child: TextFormField(
-                          // Handles Form Validation for First Name
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your name';
+                              return 'Please enter your height';
                             } else
-                            return null;
+                              return null;
                           },
                           decoration:
-                              InputDecoration(icon: Icon(Icons.person_2),labelText: 'Display  Name'),
-                          controller: displayNameController,
+                          InputDecoration(icon: Icon(Icons.person_2),labelText: 'Display  Height'),
+                          controller: displayHeightController,
                         ),
                       )),
                   Padding(
@@ -110,7 +106,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               onPressed: () {
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate()) {
-                                  updateUserValue(displayNameController.text);
+                                  updateUserValue(displayHeightController.text);
                                   Navigator.pop(context);
                                 }
                               },

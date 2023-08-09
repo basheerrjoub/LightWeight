@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../Animation/Fade_Animation.dart';
 import '../../Colors/Hex_Color.dart';
 import 'login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum FormData { Name, Phone, Email, Gender, password, ConfirmPassword }
+enum FormData { Name, Email, Gender, Weight, Height, Age, password, ConfirmPassword }
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -19,12 +21,45 @@ class _SignupScreenState extends State<SignupScreen> {
   bool ispasswordev = true;
 
   FormData? selected;
+  String? selectedGender;
+  List<String> genders = ['Male', 'Female'];
+
 
   TextEditingController nameController = new TextEditingController();
-  TextEditingController phoneController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
+  TextEditingController weightController = new TextEditingController();
+  TextEditingController heightController = new TextEditingController();
+  TextEditingController ageController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   TextEditingController confirmPasswordController = new TextEditingController();
+
+
+  Future<bool> signUp() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      String uid = userCredential.user!.uid;
+
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'name': nameController.text.trim(),
+        'email': emailController.text.trim(),
+        'weight': weightController.text.trim(),
+        'height': heightController.text.trim(),
+        'age': ageController.text.trim(),
+        'gender': selectedGender.toString()
+      });
+
+      return true; // Successful signup and database update
+    } on FirebaseAuthException catch (e) {
+      print("Error while Authentication: " + e.toString());
+      return false; // There was an error
+    } catch (e) { // Handle any other unexpected exceptions
+      print("Unexpected error: " + e.toString());
+      return false; // There was an error
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,38 +181,41 @@ class _SignupScreenState extends State<SignupScreen> {
                             height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12.0),
-                              color: selected == FormData.Phone
+                              color: selected == FormData.Age
                                   ? enabled
                                   : backgroundColor,
                             ),
                             padding: const EdgeInsets.all(5.0),
                             child: TextField(
-                              controller: phoneController,
+
+                              keyboardType: TextInputType.number,
+                              controller: ageController,  // Assuming you have an ageController defined elsewhere
                               onTap: () {
                                 setState(() {
-                                  selected = FormData.Phone;
+                                  selected = FormData.Age;
                                 });
                               },
+
                               decoration: InputDecoration(
                                 enabledBorder: InputBorder.none,
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
-                                  Icons.phone_android_rounded,
-                                  color: selected == FormData.Phone
+                                  Icons.cake,  // Icon representing age/birthday
+                                  color: selected == FormData.Age
                                       ? enabledtxt
                                       : deaible,
                                   size: 20,
                                 ),
-                                hintText: 'Phone Number',
+                                hintText: 'Age',
                                 hintStyle: TextStyle(
-                                    color: selected == FormData.Phone
+                                    color: selected == FormData.Age
                                         ? enabledtxt
                                         : deaible,
                                     fontSize: 12),
                               ),
                               textAlignVertical: TextAlignVertical.center,
                               style: TextStyle(
-                                  color: selected == FormData.Phone
+                                  color: selected == FormData.Age
                                       ? enabledtxt
                                       : deaible,
                                   fontWeight: FontWeight.bold,
@@ -188,6 +226,169 @@ class _SignupScreenState extends State<SignupScreen> {
                         const SizedBox(
                           height: 20,
                         ),
+                        FadeAnimation(
+                          delay: 1,
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              color: selected == FormData.Weight
+                                  ? enabled
+                                  : backgroundColor,
+                            ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+
+                              keyboardType: TextInputType.number,
+                              controller: weightController,  // Assuming you have an ageController defined elsewhere
+                              onTap: () {
+                                setState(() {
+                                  selected = FormData.Weight;
+                                });
+                              },
+
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                prefixIcon: Icon(
+                                  Icons.fitness_center,  // Icon representing age/birthday
+                                  color: selected == FormData.Weight
+                                      ? enabledtxt
+                                      : deaible,
+                                  size: 20,
+                                ),
+                                hintText: 'Weight',
+                                hintStyle: TextStyle(
+                                    color: selected == FormData.Weight
+                                        ? enabledtxt
+                                        : deaible,
+                                    fontSize: 12),
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              style: TextStyle(
+                                  color: selected == FormData.Weight
+                                      ? enabledtxt
+                                      : deaible,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        FadeAnimation(
+                          delay: 1,
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              color: selected == FormData.Height
+                                  ? enabled
+                                  : backgroundColor,
+                            ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+
+                              keyboardType: TextInputType.number,
+                              controller: heightController,  // Assuming you have an ageController defined elsewhere
+                              onTap: () {
+                                setState(() {
+                                  selected = FormData.Height;
+                                });
+                              },
+
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                prefixIcon: Icon(
+                                  Icons.height,  // Icon representing age/birthday
+                                  color: selected == FormData.Height
+                                      ? enabledtxt
+                                      : deaible,
+                                  size: 20,
+                                ),
+                                hintText: 'Height',
+                                hintStyle: TextStyle(
+                                    color: selected == FormData.Height
+                                        ? enabledtxt
+                                        : deaible,
+                                    fontSize: 12),
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              style: TextStyle(
+                                  color: selected == FormData.Height
+                                      ? enabledtxt
+                                      : deaible,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FadeAnimation(
+                          delay: 1, // Incrementing the delay for the new widget
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              color: selected == FormData.Gender
+                                  ? enabled
+                                  : backgroundColor,
+                            ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Icon(
+                                    Icons.person, // Icon representing gender
+                                    color: selected == FormData.Gender
+                                        ? enabledtxt
+                                        : deaible,
+                                    size: 20,
+                                  ),
+                                ),
+
+                                Expanded(
+                                  child: DropdownButtonHideUnderline( // Hide the underline to make it blend in
+                                    child: DropdownButton<String>(
+                                      isExpanded: true, // Ensures that dropdown is aligned properly
+                                      items: <String>['Male', 'Female'].map((String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+
+                                          child: Text(value, style: TextStyle(fontSize: 12, color: Colors.grey),),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          selectedGender = newValue;
+                                          selected = FormData.Gender;
+                                        });
+                                      },
+                                      value: selectedGender,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+
                         FadeAnimation(
                           delay: 1,
                           child: Container(
@@ -377,7 +578,25 @@ class _SignupScreenState extends State<SignupScreen> {
                         FadeAnimation(
                           delay: 1,
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                print('Name: ${nameController.text.trim()}');
+                                print('Email: ${emailController.text.trim()}');
+                                print('Weight: ${weightController.text.trim()}');
+                                print('Height: ${heightController.text.trim()}');
+                                print('Age: ${ageController.text.trim()}');
+                                print('Gender: ${selectedGender.toString()}');
+                                print('Password: ${passwordController.text.trim()}');
+                                print('Confirm Password: ${confirmPasswordController.text.trim()}');
+                                bool isSuccess = await signUp();
+                                if (isSuccess) {
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                                } else {
+                                  // Handle signup failure (e.g., show a toast or snackbar)
+                                }
+
+                              },
+
                               child: Text(
                                 "Sign Up",
                                 style: TextStyle(

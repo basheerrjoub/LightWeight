@@ -5,42 +5,38 @@ import '../../models/AppUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// This class handles the Page to edit the Name Section of the User Profile.
-class EditNameFormPage extends StatefulWidget {
+class EditWeightFormPage extends StatefulWidget {
   final AppUser user;
 
 
-  const EditNameFormPage({required this.user}) ;
+  const EditWeightFormPage({required this.user}) ;
 
   @override
-  EditNameFormPageState createState() {
-    return EditNameFormPageState();
+  EditWeightFormPageState createState() {
+    return EditWeightFormPageState();
   }
 }
 
-class EditNameFormPageState extends State<EditNameFormPage> {
+class EditWeightFormPageState extends State<EditWeightFormPage> {
   final _formKey = GlobalKey<FormState>();
-  final displayNameController = TextEditingController();
+  final displayWeightController = TextEditingController();
   final firebaseUser = FirebaseAuth.instance.currentUser;
 
 
   @override
   void dispose() {
-    displayNameController.dispose();
+    displayWeightController.dispose();
     super.dispose();
   }
 
-  void updateUserValue(String name) async {
-    widget.user.name = name;
-
-    await firebaseUser?.updateDisplayName(name);
-
-    // Update the name in Firestore
+  void updateUserValue(String weight) async {
+    widget.user.weight = int.parse(weight);
+    // Update the weight in Firestore
     if(firebaseUser != null) {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(firebaseUser!.uid)
-          .update({'name': name});
+          .update({'weight': weight});
     }
   }
 
@@ -66,7 +62,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                   );
                 },
               ),
-              title: Text('Edit Name', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
+              title: Text('Edit Weight', style: TextStyle(fontSize: 25,color: Colors.white, fontFamily: "OnelySans"),),
             ),
             SizedBox(height: 30,),
             Form(
@@ -77,7 +73,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                 children: <Widget>[
                   Center(
                       child: const Text(
-                        "What's Your Name?",
+                        "What's Your Weight?",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -87,16 +83,16 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                       child: Container(
                         width: 300,
                         child: TextFormField(
-                          // Handles Form Validation for First Name
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your name';
+                              return 'Please enter your weight';
                             } else
-                            return null;
+                              return null;
                           },
                           decoration:
-                              InputDecoration(icon: Icon(Icons.person_2),labelText: 'Display  Name'),
-                          controller: displayNameController,
+                          InputDecoration(icon: Icon(Icons.person_2),labelText: 'Weight'),
+                          controller: displayWeightController,
                         ),
                       )),
                   Padding(
@@ -110,7 +106,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                               onPressed: () {
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate()) {
-                                  updateUserValue(displayNameController.text);
+                                  updateUserValue(displayWeightController.text);
                                   Navigator.pop(context);
                                 }
                               },

@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'workouts_screen.dart';
 import '../models/Exercise.dart';
 import '../models/Exercise_data.dart';
+import '../AppConstants.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
