@@ -135,13 +135,13 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                     mainAxisSpacing: 8.0,   // Spacing between rows
                     crossAxisSpacing: 8.0,  // Spacing between cards
                   ),
-                  itemCount: chestWorkout.length,
+                  itemCount: widget.workout.length,
                   itemBuilder: (context, index) {
-                    return ExerciseCard(exercise: chestWorkout[index],onTap: () {
+                    return ExerciseCard(exercise: widget.workout[index],onTap: () {
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: chestWorkout[index],)),
+                        MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: widget.workout[index],)),
                       );
                     },);
                   },

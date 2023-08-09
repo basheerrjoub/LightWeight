@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'detail_page.dart';
-import 'category_boxes.dart';
 import '../customize/icons.dart';
 import 'discover_card.dart';
 import 'discover_small_card.dart';
 import 'svg_asset.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'workouts_screen.dart';
-import '../models/Exercise.dart';
 import '../models/Exercise_data.dart';
-import '../AppConstants.dart';
 import 'top_slider/BMI.dart';
+import 'top_slider/Tips.dart';
+import 'top_slider/favourite.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -88,7 +85,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 ),
               ),
                   GestureDetector(
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Favourite()),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(12),
                       margin: EdgeInsets.all(10),
@@ -169,7 +171,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Tips()),
+                      );
+                    },
                     child: Container(
                       padding: EdgeInsets.all(12),
                       margin: EdgeInsets.all(10),

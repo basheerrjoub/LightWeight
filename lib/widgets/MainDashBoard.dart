@@ -36,6 +36,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
       ),
       bottomNavigationBar: Theme(
         data: ThemeData(
+
           highlightColor: Colors.transparent,
           splashColor: Colors.transparent,
         ),
@@ -107,7 +108,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
-          backgroundColor: Color(0xff1C2031),
+          backgroundColor: Color(0xff230905),
         ),
       ),
     );

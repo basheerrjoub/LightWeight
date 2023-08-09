@@ -4,7 +4,7 @@ const List<Exercise> chestWorkout = [
   const Exercise(
     eid: '1',
     name: 'Push Up',
-    type: 'Strength',
+    type: 'Chest',
     description: 'A basic bodyweight exercise to train the chest, shoulders, and triceps.',
     sets: 3,
     repetitions: 15,
@@ -15,7 +15,7 @@ const List<Exercise> chestWorkout = [
   const Exercise(
     eid: '2',
     name: 'Bench Press',
-    type: 'Strength',
+    type: 'Chest',
     description: 'A compound movement to target the chest using a barbell or dumbbells.',
     sets: 4,
     repetitions: 10,
@@ -26,7 +26,7 @@ const List<Exercise> chestWorkout = [
   const Exercise(
     eid: '3',
     name: 'Chest Fly',
-    type: 'Strength',
+    type: 'Chest',
     description: 'An isolation exercise to train the chest muscles using dumbbells.',
     sets: 3,
     repetitions: 12,
@@ -37,7 +37,7 @@ const List<Exercise> chestWorkout = [
   const Exercise(
     eid: '3',
     name: 'Chest Fly',
-    type: 'Strength',
+    type: 'Chest',
     description: 'An isolation exercise to train the chest muscles using dumbbells.',
     sets: 3,
     repetitions: 12,
@@ -48,7 +48,7 @@ const List<Exercise> chestWorkout = [
   const Exercise(
     eid: '3',
     name: 'Chest Fly',
-    type: 'Strength',
+    type: 'Chest',
     description: 'An isolation exercise to train the chest muscles using dumbbells.',
     sets: 3,
     repetitions: 12,
@@ -59,7 +59,7 @@ const List<Exercise> chestWorkout = [
   const Exercise(
     eid: '3',
     name: 'Chest Fly',
-    type: 'Strength',
+    type: 'Chest',
     description: 'An isolation exercise to train the chest muscles using dumbbells.',
     sets: 3,
     repetitions: 12,

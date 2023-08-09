@@ -31,7 +31,6 @@ class BMIStatus {
 
 
 class _DetailPageState extends State<BMI> {
-  bool? isHeartIconTapped = false;
   AppUser user = AppConstants.currentUser!;
 
   double calculateBMI(int weight, double height) {
@@ -108,7 +107,7 @@ class _DetailPageState extends State<BMI> {
                 Padding(
                   padding: EdgeInsets.only(left: 28.w),
                   child: Text(
-                    "How healthy you are according to BMI?",
+                    "How healthy you are, according to BMI?",
                     style: TextStyle(
                         color: Color(0xffffffff).withOpacity(0.7),
                         fontWeight: FontWeight.w400,
@@ -296,9 +295,4 @@ class _DetailPageState extends State<BMI> {
     Navigator.pop(context);
   }
 
-  void onHeartIconTapped() {
-    setState(() {
-      isHeartIconTapped = !isHeartIconTapped!;
-    });
-  }
 }

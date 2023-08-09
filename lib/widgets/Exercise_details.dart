@@ -7,11 +7,16 @@ import 'svg_asset.dart';
 import '../models/Exercise.dart';
 import '../models/Exercise_data.dart';
 import 'Exercise_card.dart';
+import '../models/AppUser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class ExerciseDetailScreen extends StatefulWidget {
   final Exercise exercise;
 
   const ExerciseDetailScreen({required this.exercise});
+
 
   @override
   _ExerciseDetailScreenState createState() => _ExerciseDetailScreenState();
@@ -19,9 +24,42 @@ class ExerciseDetailScreen extends StatefulWidget {
 
 class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   bool? isHeartIconTapped = false;
+  Future<bool> isExerciseFavorited(String exerciseId) async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('favourite')
+            .where('userId', isEqualTo: currentUser.uid)
+            .where('exerciseId', isEqualTo: exerciseId)
+            .get();
+
+        return snapshot.docs.isNotEmpty;
+      }
+      return false;
+    } catch (e) {
+      print("Error checking if exercise is favorited: " + e.toString());
+      return false;
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    initializeHeartIconState();
+  }
+
+  void initializeHeartIconState() async {
+    bool favorited = await isExerciseFavorited(widget.exercise.eid);
+    setState(() {
+      isHeartIconTapped = favorited;
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: const Color(0xff3d1007),
       body: SafeArea(
@@ -75,9 +113,13 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   ),
                 ),
                 SizedBox(height: 20.h),
-                Image.network(
-                  widget.exercise.image,
-                  fit: BoxFit.cover,
+                Container(
+                  width: double.infinity,
+                  child: Image.network(
+
+                    widget.exercise.image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
 
 
@@ -217,6 +259,25 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                               ),
                             ),
                           ),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(360),
+                            onTap: onHeartIconTapped,
+                            child: Container(
+                              height: 35.w,
+                              width: 35.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(360),
+                              ),
+                              child: Center(
+                                child: SvgAsset(
+                                  assetName: AssetName.heart,
+                                  height: 24.w,
+                                  width: 24.w,
+                                  color: isHeartIconTapped! ? Colors.red: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
 
                         ],
                       ),
@@ -256,5 +317,77 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   void onBackIconTapped() {
     Navigator.pop(context);
   }
+
+  void onHeartIconTapped() async {
+    setState(() {
+      isHeartIconTapped = !isHeartIconTapped!;
+    });
+
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      if (isHeartIconTapped!) {
+        // Add the exercise to favorite exercises
+        await saveFavouriteExercise(widget.exercise.eid, widget.exercise.type);
+      } else {
+        // Remove the exercise from favorite exercises
+        String? docId = await getFavouriteExerciseDocId(widget.exercise.eid, currentUser.uid);
+        if (docId != null) {
+          await deleteFavouriteExercise(docId);
+        }
+      }
+    }
+  }
+  Future<String?> getFavouriteExerciseDocId(String exerciseId, String userId) async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('favourite')
+          .where('userId', isEqualTo: userId)
+          .where('exerciseId', isEqualTo: exerciseId)
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.id;
+      }
+    } catch (e) {
+      print("Error fetching favourite exercise docId: " + e.toString());
+    }
+    return null;
+  }
+
+  Future<void> saveFavouriteExercise(String exerciseId, String exerciseType) async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        // Check if the user has already favorited this exercise
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('favourite')
+            .where('userId', isEqualTo: currentUser.uid)
+            .where('exerciseId', isEqualTo: exerciseId)
+            .get();
+
+        if (snapshot.docs.isEmpty) {
+          // Only add if no such record exists
+          await FirebaseFirestore.instance.collection('favourite').add({
+            'userId': currentUser.uid,
+            'exerciseId': exerciseId,
+            'exerciseType': exerciseType,
+          });
+        }
+      }
+    } catch (e) {
+      print("Error saving favourite exercise: " + e.toString());
+    }
+  }
+
+
+  Future<void> deleteFavouriteExercise(String docId) async {
+    try {
+      await FirebaseFirestore.instance.collection('favourite').doc(docId).delete();
+    } catch (e) {
+      print("Error deleting favourite exercise: " + e.toString());
+    }
+  }
+
 
 }
