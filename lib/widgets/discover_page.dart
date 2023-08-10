@@ -10,7 +10,9 @@ import 'workouts_screen.dart';
 import '../models/Exercise_data.dart';
 import 'top_slider/BMI.dart';
 import 'top_slider/Tips.dart';
+import 'top_slider/hotel_booking/meals.dart';
 import 'top_slider/favourite.dart';
+import 'top_slider/hotel_booking/hotel_home_screen.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -24,7 +26,6 @@ class DiscoverPage extends StatefulWidget {
 class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     ScreenUtil.init(context);
     return Scaffold(
       backgroundColor: Color(0xff3d1007),
@@ -47,7 +48,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     width: 10.w,
                   ),
               GestureDetector(
-                onTap: null,
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  HotelHomeScreen()),
+                  );
+                },
                 child: Container(
                   padding: EdgeInsets.all(12),
                   margin: EdgeInsets.all(10),
@@ -72,7 +78,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                         ),
                         SizedBox(width: 5.w,),
                         Text(
-                          "Diet",
+                          "Meal Suggestions",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,

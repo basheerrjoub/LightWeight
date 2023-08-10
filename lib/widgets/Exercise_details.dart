@@ -10,7 +10,7 @@ import 'Exercise_card.dart';
 import '../models/AppUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:lightweight/AppConstants.dart';
 
 class ExerciseDetailScreen extends StatefulWidget {
   final Exercise exercise;
@@ -26,11 +26,11 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   bool? isHeartIconTapped = false;
   Future<bool> isExerciseFavorited(String exerciseId) async {
     try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
+      String currentUser = await AppConstants.getUserID();
+      if (currentUser != "null") {
         QuerySnapshot snapshot = await FirebaseFirestore.instance
             .collection('favourite')
-            .where('userId', isEqualTo: currentUser.uid)
+            .where('userId', isEqualTo: currentUser)
             .where('exerciseId', isEqualTo: exerciseId)
             .get();
 
@@ -323,14 +323,14 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
       isHeartIconTapped = !isHeartIconTapped!;
     });
 
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
+    String currentUser = await AppConstants.getUserID();
+    if (currentUser != "null") {
       if (isHeartIconTapped!) {
         // Add the exercise to favorite exercises
         await saveFavouriteExercise(widget.exercise.eid, widget.exercise.type);
       } else {
         // Remove the exercise from favorite exercises
-        String? docId = await getFavouriteExerciseDocId(widget.exercise.eid, currentUser.uid);
+        String? docId = await getFavouriteExerciseDocId(widget.exercise.eid, currentUser);
         if (docId != null) {
           await deleteFavouriteExercise(docId);
         }
@@ -357,19 +357,19 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
 
   Future<void> saveFavouriteExercise(String exerciseId, String exerciseType) async {
     try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
+      String currentUser = await AppConstants.getUserID();
+      if (currentUser != "null") {
         // Check if the user has already favorited this exercise
         QuerySnapshot snapshot = await FirebaseFirestore.instance
             .collection('favourite')
-            .where('userId', isEqualTo: currentUser.uid)
+            .where('userId', isEqualTo: currentUser)
             .where('exerciseId', isEqualTo: exerciseId)
             .get();
 
         if (snapshot.docs.isEmpty) {
           // Only add if no such record exists
           await FirebaseFirestore.instance.collection('favourite').add({
-            'userId': currentUser.uid,
+            'userId': currentUser,
             'exerciseId': exerciseId,
             'exerciseType': exerciseType,
           });

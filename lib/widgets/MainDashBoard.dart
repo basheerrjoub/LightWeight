@@ -29,7 +29,6 @@ class _MainDashBoardState extends State<MainDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

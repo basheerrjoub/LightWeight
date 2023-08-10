@@ -11,6 +11,7 @@ import '../widgets/MainDashBoard.dart';
 import '../customize/show_custom_message.dart';
 import '../models/AppUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 enum FormData {
@@ -19,6 +20,7 @@ enum FormData {
 }
 
 class LoginScreen extends StatefulWidget {
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -31,11 +33,27 @@ class _LoginScreenState extends State<LoginScreen> {
   Color backgroundColor = const Color(0xFF1F1A30);
   bool ispasswordev = true;
   FormData? selected;
+  bool hasLoggedInBefore = false;
 
   TextEditingController emailController = new TextEditingController(text: "basheer20599@gmail.com");
   TextEditingController passwordController = new TextEditingController(text: "basheer1234");
 
+  Future<void> markUserAsLoggedIn() async {
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasLoggedInBefore', true);
+    prefs.setString('userUID', FirebaseAuth.instance.currentUser!.uid);
+
+  }
+  Future<void> checkUserLoggedInBefore() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      hasLoggedInBefore = prefs.getBool('hasLoggedInBefore') ?? false;
+    });
+  }
+
   Future getUserData() async {
+
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       DocumentSnapshot docSnapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).get();
@@ -52,8 +70,37 @@ class _LoginScreenState extends State<LoginScreen> {
           age: int.parse(data['age'].toString()),
           gender: data['gender'] as String,
         );
+        print(AppConstants.currentUser);
       }
     }
+  }
+
+
+  Future getUserDataOffline() async {
+    String currentUser = await AppConstants.getUserID();
+    if (currentUser != "null") {
+      DocumentSnapshot docSnapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser).get();
+
+      if (docSnapshot.exists) {
+        Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+
+        AppConstants.currentUser =  AppUser(
+          uid: currentUser,
+          name: data['name'] as String,
+          email: data['email'] as String,
+          weight: int.parse(data['weight'].toString()),
+          height: int.parse(data['height'].toString()),
+          age: int.parse(data['age'].toString()),
+          gender: data['gender'] as String,
+        );
+        print(AppConstants.currentUser);
+      }
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    checkUserLoggedInBefore();
   }
 
 
@@ -252,8 +299,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   passwordController.text.trim());
                                   //Successful login
+                                  await FirebaseFirestore.instance.enableNetwork();
+                                  AppConstants.isOffline = false;
                                   await getUserData();
+                                  markUserAsLoggedIn();
                                   print(AppConstants.currentUser.toString());
+
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
@@ -281,6 +332,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+
                               style: TextButton.styleFrom(
                                   backgroundColor: Color(0xffff6347),
                                   padding: const EdgeInsets.symmetric(
@@ -289,6 +341,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                       borderRadius:
                                           BorderRadius.circular(12.0)))),
                         ),
+                        const SizedBox(height: 10,),
+                        FadeAnimation(
+                          delay: 1,
+                          child:  hasLoggedInBefore ? TextButton(
+                            onPressed: () async {
+                              await FirebaseFirestore.instance.disableNetwork();
+                              AppConstants.isOffline = true;
+                              print(hasLoggedInBefore.toString());
+                              await getUserDataOffline();
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  builder: (context) => MainDashBoard()));
+                            },
+                            child: Text(
+                              "Continue Offline",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.grey,
+                                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12.0))),
+                          )
+                              : Container(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "Please sign up or log in first to access offline mode.",
+                              style: TextStyle(color: Colors.red, fontSize: 16.0),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ),
+
+
                       ],
                     ),
                   ),
