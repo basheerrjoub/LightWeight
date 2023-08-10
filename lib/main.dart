@@ -51,37 +51,47 @@ class _MyHomePageState extends State<MyHomePage> {
         decoration: BoxDecoration(color: Colors.black),
         // change this to your desired color
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset('assets/images/logo1024x1024.png'),
-              SizedBox(height: AppConstants.deviceHeigh(context)*0.05,),
-              Container(width: double.infinity, child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text("Be your own Coach!",style: TextStyle(fontFamily: "ROYALMOSCOW",color: Colors.white, fontSize: 40,),textAlign: TextAlign.left,),
-              )),
-              Container(width: double.infinity, child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text("Enough workouts,",style: TextStyle(fontFamily: "ROYALMOSCOW",color: Colors.white, fontSize: 40,),textAlign: TextAlign.left,),
-              )),
-              Container(width: double.infinity, child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text("Just Do it!",style: TextStyle(fontFamily: "ROYALMOSCOW",color: Colors.white, fontSize: 40,),textAlign: TextAlign.left,),
-              )),
-              SizedBox(height: AppConstants.deviceHeigh(context)*0.05,),
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
-                child: BigText(title: "Start", size: 32),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(AppConstants.deviceWidth(context) * 0.8, AppConstants.deviceHeigh(context) * 0.07, ),
-                ),
-              )
-            ],
+          child: ListView(
+            children: [Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                    width: 400,
+                    height: 400,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(1000))
+                    ),
+                    child: Image.asset('assets/images/logo1024x1024.png')),
+                SizedBox(height: AppConstants.deviceHeigh(context)*0.05,),
+                Container(width: double.infinity, child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text("Be your own Coach!",style: TextStyle(fontFamily: "ROYALMOSCOW",color: Colors.white, fontSize: 40,),textAlign: TextAlign.center,),
+                )),
+                Container(width: double.infinity, child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text("A lot of Exercieses",style: TextStyle(fontFamily: "ROYALMOSCOW",color: Colors.white, fontSize: 35,),textAlign: TextAlign.center,),
+                )),
+                Container(width: double.infinity, child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text("Just Do it!",style: TextStyle(fontFamily: "ROYALMOSCOW",color: Colors.white, fontSize: 34,),textAlign: TextAlign.center,),
+                )),
+                SizedBox(height: AppConstants.deviceHeigh(context)*0.05,),
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                  child: BigText(title: "Start", size: 32),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(AppConstants.deviceWidth(context) * 0.8, AppConstants.deviceHeigh(context) * 0.07, ),
+                  ),
+                )
+              ],
+            ),],
           ),
         ),
       ),
