@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'model/hotel_list_data.dart';
+import '../../../models/Meal.dart';
 
 class HotelListView extends StatelessWidget {
   const HotelListView(
       {Key? key,
-      this.hotelData,
+      this.mealData,
       this.animationController,
       this.animation,
       this.callback})
       : super(key: key);
 
   final VoidCallback? callback;
-  final HotelListData? hotelData;
+  final Meal? mealData;
   final AnimationController? animationController;
   final Animation<double>? animation;
 
@@ -40,7 +40,7 @@ class HotelListView extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.6),
+                        color: Color(0xffe37c69).withOpacity(0.6),
                         offset: const Offset(4, 4),
                         blurRadius: 16,
                       ),
@@ -55,13 +55,12 @@ class HotelListView extends StatelessWidget {
                             AspectRatio(
                               aspectRatio: 2,
                               child: Image.asset(
-                                hotelData!.imagePath,
+                                mealData!.imageUrl,
                                 fit: BoxFit.cover,
                               ),
                             ),
                             Container(
-                              color: HotelAppTheme.buildLightTheme()
-                                  .backgroundColor,
+                              color: Color(0xffe15137),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,98 +77,23 @@ class HotelListView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              hotelData!.titleTxt,
+                                              mealData!.name,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 22,
+                                                color: Colors.white
                                               ),
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
+
                                                 Text(
-                                                  hotelData!.subTxt,
+                                                  mealData!.description,
                                                   style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.grey
+                                                      fontSize: 16,
+                                                      color: Colors.white60
                                                           .withOpacity(0.8)),
                                                 ),
-                                                const SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Icon(
-                                                  FontAwesomeIcons.locationDot,
-                                                  size: 12,
-                                                  color: HotelAppTheme
-                                                          .buildLightTheme()
-                                                      .primaryColor,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    '${hotelData!.dist.toStringAsFixed(1)} km to city',
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey
-                                                            .withOpacity(0.8)),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 4),
-                                              child: Row(
-                                                children: <Widget>[
-                                                  RatingBar(
-                                                    initialRating:
-                                                        hotelData!.rating,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    itemSize: 24,
-                                                    ratingWidget: RatingWidget(
-                                                      full: Icon(
-                                                        Icons.star_rate_rounded,
-                                                        color: HotelAppTheme
-                                                                .buildLightTheme()
-                                                            .primaryColor,
-                                                      ),
-                                                      half: Icon(
-                                                        Icons.star_half_rounded,
-                                                        color: HotelAppTheme
-                                                                .buildLightTheme()
-                                                            .primaryColor,
-                                                      ),
-                                                      empty: Icon(
-                                                        Icons
-                                                            .star_border_rounded,
-                                                        color: HotelAppTheme
-                                                                .buildLightTheme()
-                                                            .primaryColor,
-                                                      ),
-                                                    ),
-                                                    itemPadding:
-                                                        EdgeInsets.zero,
-                                                    onRatingUpdate: (rating) {
-                                                      print(rating);
-                                                    },
-                                                  ),
-                                                  Text(
-                                                    ' ${hotelData!.reviews} Reviews',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey
-                                                            .withOpacity(0.8)),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+
                                           ],
                                         ),
                                       ),
@@ -185,19 +109,20 @@ class HotelListView extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          '\$${hotelData!.perNight}',
+                                          '${mealData!.calories}',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 22,
+                                            color: Colors.white
                                           ),
                                         ),
                                         Text(
-                                          '/per night',
+                                          'Cal',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:
-                                                  Colors.grey.withOpacity(0.8)),
+                                                  Colors.white60.withOpacity(0.8)),
                                         ),
                                       ],
                                     ),
@@ -220,9 +145,8 @@ class HotelListView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(
-                                  Icons.favorite_border,
-                                  color: HotelAppTheme.buildLightTheme()
-                                      .primaryColor,
+                                  Icons.favorite,
+                                  color: Colors.red,
                                 ),
                               ),
                             ),

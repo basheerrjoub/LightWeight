@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'ChartsPage.dart';
 import 'discover_page.dart';
 import '../customize/icons.dart';
 import 'profile_page.dart';
@@ -17,7 +16,6 @@ class _MainDashBoardState extends State<MainDashBoard> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     DiscoverPage(),
-    ChartsPage(),
     ProfilePage()
   ];
 
@@ -61,26 +59,6 @@ class _MainDashBoardState extends State<MainDashBoard> {
                 ),
                 child: SvgAsset(
                     assetName: AssetName.discover, color: Color(0xffa61700)),
-              ),
-            ),
-            BottomNavigationBarItem(
-              icon: SvgAsset(assetName: AssetName.chart),
-              label: '',
-              tooltip: 'Charts',
-              activeIcon: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0xffa61700).withOpacity(0.3),
-                        offset: Offset(0, 4),
-                        blurRadius: 20),
-                  ],
-                ),
-                child: SvgAsset(
-                  assetName: AssetName.chart,
-                  color: Color(0xffa61700),
-                ),
               ),
             ),
             BottomNavigationBarItem(

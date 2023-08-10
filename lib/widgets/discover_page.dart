@@ -10,9 +10,9 @@ import 'workouts_screen.dart';
 import '../models/Exercise_data.dart';
 import 'top_slider/BMI.dart';
 import 'top_slider/Tips.dart';
-import 'top_slider/hotel_booking/meals.dart';
+import 'top_slider/meal_widgets/meals.dart';
 import 'top_slider/favourite.dart';
-import 'top_slider/hotel_booking/hotel_home_screen.dart';
+import 'top_slider/meal_widgets/meal_home_screen.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -51,7 +51,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 onTap: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  HotelHomeScreen()),
+                    MaterialPageRoute(builder: (context) =>  MealHomeScreen()),
                   );
                 },
                 child: Container(

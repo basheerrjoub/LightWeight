@@ -34,7 +34,7 @@ class BMIStatus {
 
 class _DetailPageState extends State<BMI> {
 
-  Stream<double> calculateBMI() async* {
+  Future<double> calculateBMI() async {
     String currentUser = await AppConstants.getUserID();
 
     if (currentUser != "null") {
@@ -46,14 +46,15 @@ class _DetailPageState extends State<BMI> {
           double height = double.parse(data['height'].toString());
           print("User: ${currentUser} weight: ${weight} height: ${height}");
           height /= 100;
-          yield weight / (height * height);
+          return weight / (height * height);
         } else {
-          yield 1.0;
+          return 1.0;
         }
       }
     } else {
-      yield 1.0;
+      return 1.0;
     }
+    return 0;
   }
 
 
@@ -94,8 +95,8 @@ class _DetailPageState extends State<BMI> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<double>(
-      stream: calculateBMI(),
+    return FutureBuilder<double>(
+      future: calculateBMI(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
