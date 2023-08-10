@@ -157,9 +157,13 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             SizedBox(height: 20.h),
-                            Divider(
-                              color: Colors.white.withOpacity(0.5),
-                              thickness: 1.w,
+                            Container(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 80.w,
+                                height: 10.w,
+                                color: Color(0xff912b1d),
+                              ),
                             ),
                             SizedBox(height: 20.h),
                           ],
