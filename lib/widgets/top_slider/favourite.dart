@@ -30,6 +30,8 @@ class _DetailPageState extends State<Favourite> {
   List<Exercise> chestExercises = [];
 
   Future<List<String>> getFavouriteExerciseIds() async {
+    await FirebaseFirestore.instance.disableNetwork();
+
     List<String> favouriteIds = [];
     try {
       String currentUser = await AppConstants.getUserID();
@@ -48,6 +50,7 @@ class _DetailPageState extends State<Favourite> {
       print("Error fetching favourite exercise IDs: " + e.toString());
     }
     print("Complete");
+    await FirebaseFirestore.instance.enableNetwork();
     return favouriteIds;
   }
 

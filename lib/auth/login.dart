@@ -299,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               password:
                                                   passwordController.text.trim());
                                   //Successful login
-                                  await FirebaseFirestore.instance.enableNetwork();
+
                                   AppConstants.isOffline = false;
                                   await getUserData();
                                   markUserAsLoggedIn();
@@ -346,7 +346,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           delay: 1,
                           child:  hasLoggedInBefore ? TextButton(
                             onPressed: () async {
-                              await FirebaseFirestore.instance.disableNetwork();
                               AppConstants.isOffline = true;
                               print(hasLoggedInBefore.toString());
                               await getUserDataOffline();
