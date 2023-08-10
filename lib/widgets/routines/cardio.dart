@@ -111,7 +111,7 @@ class _DetailPageState extends State<Cardio> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset("assets/images/cardio_logo.png",
-                            width: 200.w, height: 250.h, fit: BoxFit.cover),
+                            width: 200.w, height: 250.h, fit: BoxFit.contain),
                       ),
                     ),
                   ),

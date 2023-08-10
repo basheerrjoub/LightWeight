@@ -116,7 +116,7 @@ class _DetailPageState extends State<MealDetails> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset(widget.meal.imageUrl,
-                            width: 200.w, height: 200.h, fit: BoxFit.cover),
+                            width: 200.w, height: 200.h, fit: BoxFit.contain),
                       ),
                     ),
                   ),

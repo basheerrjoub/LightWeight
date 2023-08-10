@@ -111,7 +111,7 @@ class _DetailPageState extends State<FourDays> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: Image.asset("assets/images/four_days_logo.png",
-                            width: 190.w, height: 235.h, fit: BoxFit.cover),
+                            width: 190.w, height: 235.h, fit: BoxFit.contain),
                       ),
                     ),
                   ),
