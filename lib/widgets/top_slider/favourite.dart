@@ -30,7 +30,8 @@ class _DetailPageState extends State<Favourite> {
   List<Exercise> chestExercises = [];
 
   Future<List<String>> getFavouriteExerciseIds() async {
-    await FirebaseFirestore.instance.disableNetwork();
+    if(AppConstants.isOffline)
+      await FirebaseFirestore.instance.disableNetwork();
 
     List<String> favouriteIds = [];
     try {
