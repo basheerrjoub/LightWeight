@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lightweight/widgets/routines/cardio.dart';
+import 'package:lightweight/widgets/routines/four_days.dart';
+import 'package:lightweight/widgets/routines/six_days.dart';
+import 'package:lightweight/widgets/routines/two_days.dart';
 import '../customize/icons.dart';
 import 'discover_card.dart';
 import 'discover_small_card.dart';
@@ -255,7 +259,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   SizedBox(width: 28.w),
                   DiscoverCard(
                     tag: "sixDaysRoutine",
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  SixDays()),
+                      );
+                    },
                     title: "Six Days Routine",
                     subtitle: "One of the Best training shcedules",
                     gradientStartColor: Color(0xff911700),
@@ -263,7 +272,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   ),
                   SizedBox(width: 20.w),
                   DiscoverCard(
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  FourDays()),
+                      );
+                    },
                     tag: "fourDaysRoutine",
                     title: "Four Day Routine",
                     subtitle: "Four Day Routine",
@@ -272,7 +286,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   ),
                   SizedBox(width: 20.w),
                   DiscoverCard(
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  TwoDays()),
+                      );
+                    },
                     tag: "twoDaysRoutine",
                     title: "Two Days Routine",
                     subtitle: "Two Day Routine",
@@ -281,7 +300,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   ),
                   SizedBox(width: 20.w),
                   DiscoverCard(
-                    onTap: null,
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Cardio()),
+                      );
+                    },
                     isCardio: true,
                     title: "Cardio Workouts",
                     subtitle: "10 Days Audio and Video Series",
