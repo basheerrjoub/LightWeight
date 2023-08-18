@@ -6,7 +6,6 @@ class Exercise {
   final int sets;
   final int repetitions;
   final String intensity;       // e.g., 'Low', 'Medium', 'High'
-  final String prevImage;
   final String image;
 
 
@@ -19,7 +18,6 @@ class Exercise {
     required this.sets,
     required this.repetitions,
     required this.intensity,
-    required this.prevImage,
     required this.image,
   });
 

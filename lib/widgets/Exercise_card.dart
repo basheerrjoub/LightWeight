@@ -22,14 +22,15 @@ class ExerciseCard extends StatelessWidget {
         margin: const EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: Image.network(exercise.prevImage, fit: BoxFit.cover),
+            Container(
+
+              child: Image.asset(exercise.image, fit: BoxFit.fill),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(exercise.name, style: TextStyle(fontSize: 17.w,color: Colors.white, fontFamily: "OnelySans"),),
+            Expanded(
+              child: Center(child: Text(exercise.name,textAlign: TextAlign.center, style: TextStyle(fontSize: 15.w,color: Colors.white, fontFamily: "OnelySans"),)),
             ),
           ],
+
         ),
       ),
     );

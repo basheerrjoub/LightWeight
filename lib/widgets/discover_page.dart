@@ -360,7 +360,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Triceps", workout: tricepsWorkout, describtion: "The triceps consist of three heads: the long head, lateral head, and medial head. While all heads engage during triceps exercises, certain movements emphasize specific areas. To develop robust triceps, opt for exercises that target all these heads comprehensively, ensuring thorough muscle engagement.",)),
+                      );
+                    },
                     title: "Triceps",
                     gradientStartColor: Color(0xffFC67A7),
                     gradientEndColor: Color(0xffF6815B),
@@ -371,7 +376,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Back", workout: backWorkout, describtion: "A well-developed, robust back makes a strong impression. Whether your goal is enhanced muscle definition, improved performance in weightlifting, or increased overall well-being, dedicated back training is essential. Properly executed back exercises are key to achieving these objectives effectively.",)),
+                      );
                     },
                     title: "Back",
                     gradientStartColor: Color(0xffFFD541),
@@ -383,7 +392,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Biceps", workout: bicepsWorkout, describtion: "Biceps workouts focus on developing the muscles located on the front of your upper arm. These muscles, collectively known as the biceps brachii, play a crucial role in various upper body movements such as lifting, pulling, and bending your arm at the elbow. ",)),
+                      );
+                    },
                     title: "Biceps",
                     gradientStartColor: Color(0xf23ac033),
                     gradientEndColor: Color(0x1141ca33),
@@ -395,7 +409,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
 
                   ),
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Legs", workout: legsWorkout, describtion: "Training your legs in bodybuilding is crucial for several reasons. While many people tend to focus on working their upper body muscles, neglecting your leg muscles can lead to an imbalanced physique and missed opportunities for overall strength and athleticism. ",)),
+                      );
+                    },
                     title: "Legs",
                     gradientStartColor: Color(0xf23ac033),
                     gradientEndColor: Color(0x1141ca33),
@@ -406,7 +425,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Abs", workout: absWorkout, describtion: "Training abs is vital for both health and aesthetics. Strong abdominal muscles stabilize the core, preventing injuries and supporting good posture. Additionally, toned abs are a sought-after physical trait, signifying fitness and vitality.",)),
+                      );
+                    },
                     title: "Abs",
                     gradientStartColor: Color(0x19ffb8ad),
                     gradientEndColor: Color(0xe4ff0044),
@@ -417,7 +441,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Shoulders", workout: shouldersWorkout, describtion: "Training your shoulders is crucial for a balanced physique and functional strength. Well-developed shoulders support better posture, facilitate daily movements, and reduce injury risks. Additionally, strong shoulders provide a foundation for other upper body exercises, optimizing overall athletic performance.",)),
+                      );
+                    },
                     title: "Shoulders",
                     gradientStartColor: Color(0xfe0f0133),
                     gradientEndColor: Color(0xFF38A4F3),
@@ -428,7 +457,12 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     ),
                   ),
                   DiscoverSmallCard(
-                    onTap: (){},
+                    onTap: (){//DetailPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutsScreen(workoutName: "Forearms", workout: forearmsWorkout, describtion: "Training the forearms is vital for enhancing grip strength, aiding in daily tasks and sports. Additionally, it ensures a balanced aesthetic with the upper arm, promoting overall upper body development.",)),
+                      );
+                    },
                     title: "Forearms",
                     gradientStartColor: Color(0x1141ca33),
                     gradientEndColor: Color(0xbd732733),

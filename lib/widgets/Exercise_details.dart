@@ -115,7 +115,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                 SizedBox(height: 20.h),
                 Container(
                   width: double.infinity,
-                  child: Image.network(
+                  child: Image.asset(
 
                     widget.exercise.image,
                     fit: BoxFit.cover,

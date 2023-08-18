@@ -54,4 +54,5 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/images/meals/
+    - assets/images/exercises/
   uses-material-design: true
