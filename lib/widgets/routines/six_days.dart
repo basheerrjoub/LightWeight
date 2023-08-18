@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lightweight/customize/BigText.dart';
 import '../../../models/AppUser.dart';
+import '../../customize/icons.dart';
+import '../../models/Exercise.dart';
+import '../../models/Exercise_data.dart';
+import '../Exercise_card.dart';
+import '../Exercise_details.dart';
 import 'package:lightweight/AppConstants.dart';
+import '../svg_asset.dart';
 import '../top_slider/meal_widgets/hotel_app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,6 +24,44 @@ class SixDays extends StatefulWidget {
 class _DetailPageState extends State<SixDays> {
   AppUser user = AppConstants.currentUser!;
   TextStyle textStyle = const  TextStyle(color: Colors.white, fontSize: 22, fontFamily: "OnelySans");
+
+  final List<Exercise> day1exercises = [
+    legsWorkout[1],  // Seated Leg Curls
+    legsWorkout[2],  // Standing Calf Raises
+    legsWorkout[3],  // Seated Calf Raises
+    legsWorkout[0],  // Leg Presses
+    legsWorkout[6],  // Lunges (added for diversity)
+    backWorkout[1],  // Lat Pulldowns (as it uses a similar group)
+    chestWorkout[0], // Chest Press (as it's similar to your earlier example)
+    bicepsWorkout[0],// Bicep Curls (similar muscle group)
+    absWorkout[0],   // Crunches (similar muscle group)
+  ];
+
+  final List<Exercise> day2exercises = [
+    legsWorkout[0],  // Leg Presses
+    legsWorkout[4],  // Squats
+    legsWorkout[5],  // Deadlifts (as it's a major compound exercise)
+    shouldersWorkout[1], // Upright Rows (utilizes traps which is part of back group)
+    chestWorkout[2], // Bench Press (major compound exercise)
+    tricepsWorkout[1], // Tricep Dips (similar muscle group)
+    bicepsWorkout[2],  // Hammer Curls
+    absWorkout[1],   // Leg Raises (different form of abdominal exercise)
+  ];
+
+  final List<Exercise> day3exercises = [
+    legsWorkout[3],  // Seated Calf Raises
+    legsWorkout[6],  // Lunges
+    legsWorkout[7],  // Step-ups (for diversity)
+    backWorkout[2],  // Rows (major compound exercise)
+    shouldersWorkout[2], // Lateral Raises (isolates the deltoids)
+    chestWorkout[4], // Flys (isolates the pecs)
+    tricepsWorkout[2],   // Skull Crushers
+    bicepsWorkout[3],    // Concentration Curls (for peak contraction)
+    absWorkout[2],   // Russian Twists (for obliques)
+  ];
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +223,27 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day1exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day1exercises[index],onTap: () {
 
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -199,7 +264,27 @@ class _DetailPageState extends State<SixDays> {
                       style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day2exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day2exercises[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
 
 
                   Container(
@@ -222,7 +307,28 @@ class _DetailPageState extends State<SixDays> {
                       style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day3exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day3exercises[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -244,6 +350,7 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Break", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -265,6 +372,8 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Day 1", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -286,6 +395,8 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Day 2", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -307,6 +418,8 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Day 3", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
+
 
 
                 ],

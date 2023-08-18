@@ -5,6 +5,10 @@ import '../../../models/AppUser.dart';
 import 'package:lightweight/AppConstants.dart';
 import '../top_slider/meal_widgets/hotel_app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../models/Exercise.dart';
+import '../../models/Exercise_data.dart';
+import '../Exercise_card.dart';
+import '../Exercise_details.dart';
 
 class FourDays extends StatefulWidget {
 
@@ -17,6 +21,46 @@ class FourDays extends StatefulWidget {
 class _DetailPageState extends State<FourDays> {
   AppUser user = AppConstants.currentUser!;
   TextStyle textStyle = const  TextStyle(color: Colors.white, fontSize: 22, fontFamily: "OnelySans");
+
+  final List<Exercise> day1exercises = [
+    chestWorkout[0],  // Incline Presses
+    chestWorkout[1],  // Bench Press
+    chestWorkout[6],  // Dumbbell Presses
+    chestWorkout[7],  // Dumbbell Flys
+    tricepsWorkout[0],// Push Downs
+    tricepsWorkout[2],// Triceps Extension
+    tricepsWorkout[4],// EZ BAR EXTENSION
+  ];
+  final List<Exercise> day2exercises = [
+    backWorkout[0],   // Reverse Chin Ups
+    backWorkout[2],   // Lat Pull-Downs
+    backWorkout[4],   // Straight Arm Lat Pull-Downs
+    backWorkout[6],   // One Arm Rows
+    bicepsWorkout[0], // Curls
+    bicepsWorkout[2], // Hammer Curls
+    bicepsWorkout[5], // Barbell Curls
+  ];
+  final List<Exercise> day3exercises = [
+    legsWorkout[0],   // Dumbbell Goblet Squat
+    legsWorkout[1],   // Barbell Squat
+    legsWorkout[2],   // Leg Press
+    legsWorkout[4],   // Leg Extensions
+    legsWorkout[9],   // Standing Calf Raises
+    legsWorkout[10],  // Seated Calf Raises
+  ];
+  final List<Exercise> day4exercises = [
+    shouldersWorkout[0], // Military Press
+    shouldersWorkout[1], // Lateral Raises
+    shouldersWorkout[2], // Front Raises
+    shouldersWorkout[3], // Shrugs
+    absWorkout[0],      // Crunches
+    absWorkout[1],      // Leg Raises
+    absWorkout[2],      // Planks
+    forearmsWorkout[0],  // Wrist Curls
+    forearmsWorkout[1],  // Reverse Wrist Curls
+  ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +169,7 @@ class _DetailPageState extends State<FourDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  SizedBox(height: 30,),
                   Card(
                     color: Color(0xFF9F1600),  // This sets the background color for the entire tile
                     child: Theme(
@@ -142,7 +187,7 @@ class _DetailPageState extends State<FourDays> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "The six-day split routine is a method where bodybuilders divide their training into three distinct workouts, performed over three consecutive days, followed by a day off. Some even opt to do the three-day cycles twice consecutively, training for six days and resting on the seventh. The main benefit of this approach is the ability to focus intensively on just a few muscles each day, allowing for more sets and exercises per muscle group. However, even for the most seasoned and genetically advantaged bodybuilders, sustaining this routine is challenging, often lasting only about two months. As a result, many reserve the six-day split for their pre-contest phase and revert to a four- or five-day routine post-contest.",
+                              "This four-day workout split covers all major muscle groups for balanced growth. Day 1 targets the chest and triceps, with Day 2 focusing on the back and biceps. Day 3 is dedicated to leg training, from thighs to calves. The routine wraps up on Day 4, emphasizing shoulders, abs, and forearms. By segmenting muscle groups this way, the regimen ensures comprehensive development, offering a harmonized approach to strength and muscular symmetry. Proper warm-ups, cool-downs, and recovery are key to its success.",
                               style: TextStyle(color: Colors.white, fontSize: 18.sp),
                             ),
                           )
@@ -178,7 +223,27 @@ class _DetailPageState extends State<FourDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day1exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day1exercises[index],onTap: () {
 
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -199,7 +264,27 @@ class _DetailPageState extends State<FourDays> {
                       style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day2exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day2exercises[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
 
 
                   Container(
@@ -222,7 +307,28 @@ class _DetailPageState extends State<FourDays> {
                       style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day3exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day3exercises[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -244,6 +350,8 @@ class _DetailPageState extends State<FourDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Rest", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -264,7 +372,29 @@ class _DetailPageState extends State<FourDays> {
                       style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day4exercises.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day4exercises[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1exercises[index],)),
+                        );
+                      },);
+                    },
+                  ),
+
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -286,6 +416,8 @@ class _DetailPageState extends State<FourDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Rest", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
+
                   Container(
                     height: 50,
                     width: double.infinity,
@@ -307,6 +439,9 @@ class _DetailPageState extends State<FourDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  Text("Rest", textAlign: TextAlign.center,style: TextStyle(fontSize: 50,color: Colors.white60, fontFamily: "ROYALMOSCOW"),),
+
+
 
 
                 ],
