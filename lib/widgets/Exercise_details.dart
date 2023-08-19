@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../Ads/BannerAdWidget.dart';
 import '../customize/icons.dart';
 import 'svg_asset.dart';
 import '../models/Exercise.dart';
@@ -85,9 +86,10 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
+
+                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+
 
 
                 SizedBox(height: 32.h),
@@ -223,6 +225,9 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   )
 
                 ),
+                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                SizedBox(height: 70.h,),
+
               ],
             ),
 
@@ -305,6 +310,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
 
               ),
             ),
+
 
 
           ],

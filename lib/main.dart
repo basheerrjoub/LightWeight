@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lightweight/customize/BigText.dart';
 import 'package:lightweight/AppConstants.dart';
 import 'package:lightweight/auth/login.dart';
@@ -10,6 +11,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await MobileAds.instance.initialize();
+  RequestConfiguration requestConfiguration = RequestConfiguration(
+    testDeviceIds: ["AAD699CCE06343FB407651BFC2A35A61",]
+  );
+  MobileAds.instance.updateRequestConfiguration(requestConfiguration);
   FirebaseFirestore.instance.settings = Settings(persistenceEnabled: true);
   runApp(const MyApp());
 }

@@ -27,6 +27,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   animations: ^2.0.3
   fl_chart: ^0.63.0
+  google_mobile_ads: ^3.0.0
+  device_info_plus: ^3.2.3
 
 
 dev_dependencies:

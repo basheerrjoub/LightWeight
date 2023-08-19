@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../Ads/BannerAdWidget.dart';
 import '../customize/icons.dart';
 import 'svg_asset.dart';
 import '../models/Exercise.dart';
@@ -105,6 +106,8 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                     ],
                   ),
                 ),
+                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+
                 Container(
                   height: 50,
                   width: double.infinity,
@@ -178,7 +181,10 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                         fontWeight: FontWeight.w400,
                         fontSize: 16.w),
                   ),
-                )
+                ),
+                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                SizedBox(height: 40.h,),
+
               ],
             ),
 
@@ -215,6 +221,7 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                               ),
                             ),
                           ),
+
 
                         ],
                       ),

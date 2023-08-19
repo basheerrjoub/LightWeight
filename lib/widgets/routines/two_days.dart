@@ -3,9 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../models/AppUser.dart';
 import 'package:lightweight/AppConstants.dart';
+import '../../Ads/BannerAdWidget.dart';
 import '../top_slider/meal_widgets/hotel_app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import '../../models/Exercise.dart';
+import '../../models/Exercise_data.dart';
+import '../Exercise_card.dart';
+import '../Exercise_details.dart';
 class TwoDays extends StatefulWidget {
 
   @override
@@ -17,6 +21,51 @@ class TwoDays extends StatefulWidget {
 class _DetailPageState extends State<TwoDays> {
   AppUser user = AppConstants.currentUser!;
   TextStyle textStyle = const  TextStyle(color: Colors.white, fontSize: 22, fontFamily: "OnelySans");
+  final List<Exercise> day1UpperBody = [
+    // Chest
+    chestWorkout[0],  // Incline Presses
+    chestWorkout[1],  // Bench Press
+    chestWorkout[6],  // Dumbbell Presses
+    chestWorkout[7],  // Dumbbell Flys
+
+    // Back
+    backWorkout[9],   // Dead Lift
+    backWorkout[1],   // Back Pull-Downs (Revised from Pull Ups)
+    backWorkout[6],   // One Arm Rows
+    // Consider adding another back exercise from the list in place of Face Pulls
+
+    // Biceps
+    bicepsWorkout[0],  // Curls (Revised from Dumbbell Curls)
+    bicepsWorkout[2],  // Hammer Curls
+    bicepsWorkout[1],  // Concentration Curls
+
+    // Triceps
+    tricepsWorkout[0],// Push Downs
+    tricepsWorkout[2],// Triceps Extension
+    tricepsWorkout[3],// Dumbbell Triceps Extension
+
+    // Shoulders
+    shouldersWorkout[0],
+    shouldersWorkout[1],
+    shouldersWorkout[2],
+
+  ];
+
+  final List<Exercise> day2LowerBodyAndAbs = [
+    // Legs
+    legsWorkout[0],     // Dumbbell Goblet Squat
+    legsWorkout[1],     // Barbell Squat
+    legsWorkout[2],     // Leg Press
+    legsWorkout[9],     // calf
+    legsWorkout[10],     // calf
+
+    // Abs
+    absWorkout[0],     // Crunches
+    absWorkout[1],     // Sit-Ups
+    // Forearms
+    forearmsWorkout[0],
+    forearmsWorkout[1],
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +173,10 @@ class _DetailPageState extends State<TwoDays> {
                       color: Color(0xff912b1d),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 10,),
+                  BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                  SizedBox(height: 10,),
+
                   Card(
                     color: Color(0xFF9F1600),  // This sets the background color for the entire tile
                     child: Theme(
@@ -142,7 +194,7 @@ class _DetailPageState extends State<TwoDays> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "The six-day split routine is a method where bodybuilders divide their training into three distinct workouts, performed over three consecutive days, followed by a day off. Some even opt to do the three-day cycles twice consecutively, training for six days and resting on the seventh. The main benefit of this approach is the ability to focus intensively on just a few muscles each day, allowing for more sets and exercises per muscle group. However, even for the most seasoned and genetically advantaged bodybuilders, sustaining this routine is challenging, often lasting only about two months. As a result, many reserve the six-day split for their pre-contest phase and revert to a four- or five-day routine post-contest.",
+                              "This two-day-a-week workout routine provides a balanced strength training regimen, targeting both the upper and lower body. Day one focuses on the chest, back, biceps, triceps, and shoulders with exercises like incline presses, deadlifts, and various dumbbell workouts. Day two emphasizes the lower body and core with key movements such as goblet squats, barbell squats, and crunches.The benefits of this routine include a comprehensive workout in a short span, making it suitable for those with limited time. The blend of compound and isolation exercises promotes balanced muscle growth. However, potential drawbacks include insufficient recovery if days are consecutive, and the routine's intensity might be challenging for beginners. Proper form is crucial to prevent injuries.",
                               style: TextStyle(color: Colors.white, fontSize: 18.sp),
                             ),
                           )
@@ -178,6 +230,28 @@ class _DetailPageState extends State<TwoDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day1UpperBody.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day1UpperBody[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day1UpperBody[index],)),
+                        );
+                      },);
+                    },
+                  ),
+
 
                   Container(
                     height: 50,
@@ -200,112 +274,31 @@ class _DetailPageState extends State<TwoDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: day2LowerBodyAndAbs.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: day2LowerBodyAndAbs[index],onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: day2LowerBodyAndAbs[index],)),
+                        );
+                      },);
+                    },
+                  ),
 
 
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 3",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 4",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 5",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 6",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 7",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
+
+
                   SizedBox(height: 30,),
 
 

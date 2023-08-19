@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lightweight/customize/BigText.dart';
 import '../../../models/AppUser.dart';
+import '../../Ads/BannerAdWidget.dart';
 import '../../customize/icons.dart';
 import '../../models/Exercise.dart';
 import '../../models/Exercise_data.dart';
@@ -170,6 +171,8 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
+                  BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+
                   Card(
                     color: Color(0xFF9F1600),  // This sets the background color for the entire tile
                     child: Theme(

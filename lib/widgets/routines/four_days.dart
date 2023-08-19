@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../models/AppUser.dart';
 import 'package:lightweight/AppConstants.dart';
+import '../../Ads/BannerAdWidget.dart';
 import '../top_slider/meal_widgets/hotel_app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/Exercise.dart';
@@ -168,8 +169,10 @@ class _DetailPageState extends State<FourDays> {
                       color: Color(0xff912b1d),
                     ),
                   ),
-                  SizedBox(height: 30,),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 10,),
+                  BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                  SizedBox(height: 10,),
+
                   Card(
                     color: Color(0xFF9F1600),  // This sets the background color for the entire tile
                     child: Theme(
