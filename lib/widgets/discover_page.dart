@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lightweight/Ads/BannerAdWidget.dart';
 import 'package:lightweight/widgets/routines/cardio.dart';
 import 'package:lightweight/widgets/routines/four_days.dart';
 import 'package:lightweight/widgets/routines/six_days.dart';
 import 'package:lightweight/widgets/routines/two_days.dart';
+import '../AppConstants.dart';
 import '../customize/icons.dart';
 import 'discover_card.dart';
 import 'discover_small_card.dart';
@@ -17,7 +17,6 @@ import 'top_slider/BMI.dart';
 import 'top_slider/Tips.dart';
 import 'top_slider/favourite.dart';
 import 'top_slider/meal_widgets/meal_home_screen.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({
@@ -47,7 +46,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 image: AssetImage("assets/images/dashboardLogo.png"),),
             ),),
             Container(
-              height: 70.h,
+              height: 90,
               margin: EdgeInsets.only(top: 20),
               child: ListView(
                 physics: BouncingScrollPhysics(),
@@ -234,7 +233,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               ),
             ),
             Container(
-              height: 50,
+              height: 80,
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -325,7 +324,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
             ),
             SizedBox(height: 28.h),
             Container(
-              height: 50,
+              height: 80,
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -524,7 +523,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               ),
             ),
             SizedBox(height: 20.h,),
-            BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3)
+            BannerAdWidget(adUnitId: AppConstants.adID, size: 3)
 
           ],
 

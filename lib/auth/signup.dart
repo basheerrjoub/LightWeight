@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../Animation/Fade_Animation.dart';
 import '../../Colors/Hex_Color.dart';
+import '../customize/show_custom_message.dart';
 import 'login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -33,13 +34,50 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController passwordController = new TextEditingController();
   TextEditingController confirmPasswordController = new TextEditingController();
 
+  bool isValidEmail(String email) {
+    Pattern pattern =
+        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
+    RegExp regex = RegExp(pattern.toString());
+    return regex.hasMatch(email);
+  }
 
-  Future<bool> signUp() async {
+  bool isValidPassword(String password) {
+    // At least 8 characters, includes a number and a special character
+    Pattern pattern = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,}$';
+    RegExp regex = RegExp(pattern.toString());
+    return regex.hasMatch(password);
+  }
+
+
+  Future<bool> signUp(BuildContext context) async {
+    // Check if the fields are not empty
+    if (emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        weightController.text.isEmpty ||
+        heightController.text.isEmpty ||
+        ageController.text.isEmpty) {
+      showCustomSnackBar(context, "All fields are required.");
+      return false;
+    }
+
+    // Check email and password validity
+    if (!isValidEmail(emailController.text.trim())) {
+      showCustomSnackBar(context, "Enter a valid email.");
+      return false;
+    }
+    if (!isValidPassword(passwordController.text.trim())) {
+      showCustomSnackBar(
+          context, "Password must be at least 8 characters and include a number.");
+      return false;
+    }
+
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
       String uid = userCredential.user!.uid;
 
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
@@ -51,15 +89,17 @@ class _SignupScreenState extends State<SignupScreen> {
         'gender': selectedGender.toString()
       });
 
-      return true; // Successful signup and database update
+      showCustomSnackBar(context, "Registration successful!", isError: false);
+      return true;
     } on FirebaseAuthException catch (e) {
-      print("Error while Authentication: " + e.toString());
-      return false; // There was an error
-    } catch (e) { // Handle any other unexpected exceptions
-      print("Unexpected error: " + e.toString());
-      return false; // There was an error
+      showCustomSnackBar(context, "Error while Authentication: ${e.message}");
+      return false;
+    } catch (e) {
+      showCustomSnackBar(context, "Unexpected error: ${e.toString()}");
+      return false;
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -587,7 +627,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 print('Gender: ${selectedGender.toString()}');
                                 print('Password: ${passwordController.text.trim()}');
                                 print('Confirm Password: ${confirmPasswordController.text.trim()}');
-                                bool isSuccess = await signUp();
+                                bool isSuccess = await signUp(context);
                                 if (isSuccess) {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));

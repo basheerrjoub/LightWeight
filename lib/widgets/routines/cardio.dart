@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../models/AppUser.dart';
+import '../../models/Exercise_data.dart';
 import 'package:lightweight/AppConstants.dart';
 import '../../Ads/BannerAdWidget.dart';
 import '../top_slider/meal_widgets/hotel_app_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import '../Exercise_card.dart';
+import '../Exercise_details.dart';
 class Cardio extends StatefulWidget {
 
   @override
@@ -126,7 +128,7 @@ class _DetailPageState extends State<Cardio> {
                     ),
                   ),
                   SizedBox(height: 10,),
-                  BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                  BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
                   SizedBox(height: 10,),
 
                   Card(
@@ -146,7 +148,7 @@ class _DetailPageState extends State<Cardio> {
                           Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "The six-day split routine is a method where bodybuilders divide their training into three distinct workouts, performed over three consecutive days, followed by a day off. Some even opt to do the three-day cycles twice consecutively, training for six days and resting on the seventh. The main benefit of this approach is the ability to focus intensively on just a few muscles each day, allowing for more sets and exercises per muscle group. However, even for the most seasoned and genetically advantaged bodybuilders, sustaining this routine is challenging, often lasting only about two months. As a result, many reserve the six-day split for their pre-contest phase and revert to a four- or five-day routine post-contest.",
+                              "Cardiovascular exercise, commonly referred to as cardio, plays a crucial role in promoting heart health, enhancing lung capacity, and burning calories. Engaging in regular cardio workouts can improve endurance, reduce the risk of chronic diseases, and promote overall well-being. Beyond physical benefits, cardio activities also serve as a means to relieve stress and boost mood, making it an essential component of a balanced fitness routine",
                               style: TextStyle(color: Colors.white, fontSize: 18.sp),
                             ),
                           )
@@ -155,33 +157,6 @@ class _DetailPageState extends State<Cardio> {
                     ),
                   ),
                   SizedBox(height: 40.h,),
-                  Text(
-                    "Workout Seperation",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontFamily: "OnelySans", fontSize: 25.sp),
-                  ),
-                  SizedBox(height: 10.h,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 1",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
 
                   Container(
                     height: 50,
@@ -199,118 +174,32 @@ class _DetailPageState extends State<Cardio> {
                       ),
                     ),
                     child: Text(
-                      "Day 2",
+                      "Exercises",
                       style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
                     ),
                   ),
                   SizedBox(height: 30,),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,  // Number of cards in a row
+                      childAspectRatio: 0.8,  // Adjust based on your design preference
+                      mainAxisSpacing: 8.0,   // Spacing between rows
+                      crossAxisSpacing: 8.0,  // Spacing between cards
+                    ),
+                    itemCount: cardioWorkout.length,
+                    itemBuilder: (context, index) {
+                      return ExerciseCard(exercise: cardioWorkout[index],onTap: () {
 
-
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 3",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ExerciseDetailScreen(exercise: cardioWorkout[index],)),
+                        );
+                      },);
+                    },
                   ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 4",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 5",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 6",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF5E1508),
-                          Color(0xFFC23019),
-                          Color(0xFF5E1508),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      "Day 7",
-                      style: TextStyle(color: Colors.white, fontSize: 23.w, fontFamily: "ROYALMOSCOW"),
-                    ),
-                  ),
-                  SizedBox(height: 30,),
 
 
                 ],

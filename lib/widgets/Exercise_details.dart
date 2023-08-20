@@ -88,14 +88,14 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                 ),
                 SizedBox(height: 10.h),
 
-                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
 
 
 
                 SizedBox(height: 32.h),
 
                 Container(
-                  height: 50,
+                  height: 80,
                   width: double.infinity,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -127,7 +127,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
 
                 SizedBox(height: 30.h),
                 Container(
-                  height: 50,
+                  height: 80,
                   width: double.infinity,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -158,7 +158,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   ),
                 ),
                 Container(
-                  height: 50,
+                  height: 80,
                   width: double.infinity,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -225,7 +225,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   )
 
                 ),
-                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
                 SizedBox(height: 70.h,),
 
               ],

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppConstants {
   static bool isOffline = false;
-
+  static String adID = "Not Ready Yet!";
   static AppUser? currentUser;
   static double deviceWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;

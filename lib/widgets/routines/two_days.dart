@@ -174,7 +174,7 @@ class _DetailPageState extends State<TwoDays> {
                     ),
                   ),
                   SizedBox(height: 10,),
-                  BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                  BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
                   SizedBox(height: 10,),
 
                   Card(

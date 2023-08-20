@@ -66,7 +66,7 @@ class _DetailPageState extends State<Tips> {
                 SizedBox(height: 25.h),
                 SizedBox(height: 25.h),
                 Column(
-                  children: dummyTips.map((tip) => _buildTipCard(tip)).toList(),
+                  children: bodybuildingTips.map((tip) => _buildTipCard(tip)).toList(),
                 ),
 
                 SizedBox(height: 150.h),
@@ -151,23 +151,48 @@ class _DetailPageState extends State<Tips> {
 
   Widget _buildTipCard(Tip tip) {
     return Card(
-
-      color: Colors.greenAccent.withOpacity(0.6),
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+      elevation: 5,  // A subtle shadow for the card
       child: ExpansionTile(
-        leading: Image.asset(tip.imagePath, width: 80.w, height: 80.h),  // Display the image
-        title: Text(tip.title, style: TextStyle(color: Color(0xff3a0400), fontFamily: "OnelySans", fontSize: 18.w),),
-        subtitle: Text(tip.briefDescription,style: TextStyle(color: Color(0xff3a0400), fontFamily: "Georgia", fontSize: 13.w)),
+        tilePadding: EdgeInsets.symmetric(horizontal: 20.w),  // Increased left and right padding
+        leading: ClipOval(  // Circular clip for image
+          child: Image.asset(tip.imagePath, width: 60.w, height: 60.h),  // Slightly smaller image size
+        ),
+        title: Text(
+          tip.title,
+          style: TextStyle(
+            color: Colors.black87,  // Darker text color for better contrast
+            fontFamily: "Roboto",  // A more modern font
+            fontSize: 18.w,
+            fontWeight: FontWeight.w500,  // Semi-bold for the title
+          ),
+        ),
+        subtitle: Text(
+          tip.briefDescription,
+          maxLines: 2,  // Limit to two lines
+          overflow: TextOverflow.ellipsis,  // Ellipsis if text is too long
+          style: TextStyle(
+            color: Colors.black54,  // Slightly lighter color for the subtitle
+            fontFamily: "Roboto",
+            fontSize: 14.w,
+          ),
+        ),
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            child: Text(tip.detailedDescription, style: TextStyle(color: Color(0xff3a0400), fontFamily: "Georgia", fontSize: 12.w)),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            child: Text(
+              tip.detailedDescription,
+              style: TextStyle(
+                color: Colors.black54,  // Match with subtitle color
+                fontFamily: "Roboto",
+                fontSize: 14.w,
+              ),
+            ),
           ),
         ],
       ),
     );
   }
-
 
 
 }

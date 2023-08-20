@@ -171,7 +171,7 @@ class _DetailPageState extends State<SixDays> {
                     ),
                   ),
                   SizedBox(height: 30,),
-                  BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                  BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
 
                   Card(
                     color: Color(0xFF9F1600),  // This sets the background color for the entire tile

@@ -30,24 +30,17 @@ class HotelListView extends StatelessWidget {
             transform: Matrix4.translationValues(
                 0.0, 50 * (1.0 - animation!.value), 0.0),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 8, bottom: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: InkWell(
                 splashColor: Colors.transparent,
                 onTap: callback,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Color(0xffe37c69).withOpacity(0.6),
-                        offset: const Offset(4, 4),
-                        blurRadius: 16,
-                      ),
-                    ],
+                child: Card(
+                  elevation: 4.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    borderRadius: BorderRadius.circular(16.0),
                     child: Stack(
                       children: <Widget>[
                         Column(
@@ -60,71 +53,58 @@ class HotelListView extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              color: Color(0xffe15137),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xffe15137),
+                                    Color(0xffe37c69),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(12.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Expanded(
-                                    child: Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 16, top: 8, bottom: 8),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              mealData!.name,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 22,
-                                                color: Colors.white
-                                              ),
-                                            ),
-
-                                                Text(
-                                                  mealData!.description,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: Colors.white60
-                                                          .withOpacity(0.8)),
-                                                ),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 16, top: 8),
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          '${mealData!.calories}',
-                                          textAlign: TextAlign.left,
+                                          mealData!.name,
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 22,
-                                            color: Colors.white
+                                            fontSize: 20,
+                                            color: Colors.white,
                                           ),
                                         ),
+                                        SizedBox(height: 8.0),
                                         Text(
-                                          'Cal',
+                                          mealData!.description,
                                           style: TextStyle(
-                                              fontSize: 14,
-                                              color:
-                                                  Colors.white60.withOpacity(0.8)),
+                                            fontSize: 14,
+                                            color: Colors.white.withOpacity(0.8),
+                                          ),
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                  Text(
+                                    '${mealData!.calories}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(width: 4.0),
+                                  Text(
+                                    'Cal',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white.withOpacity(0.8),
                                     ),
                                   ),
                                 ],
@@ -147,6 +127,7 @@ class HotelListView extends StatelessWidget {
                                 child: Icon(
                                   Icons.favorite,
                                   color: Colors.red,
+                                  size: 28.0,
                                 ),
                               ),
                             ),

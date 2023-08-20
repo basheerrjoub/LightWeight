@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'hotel_app_theme.dart';
 import '../../../models/Meal.dart';
+import '../../../models/Meal_data.dart';
 import '../BMI.dart';
 import 'package:lightweight/AppConstants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,11 +17,8 @@ class MealHomeScreen extends StatefulWidget {
 class _MealHomeScreenState extends State<MealHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  List<Meal> mealList = Meal.mealList;
   final ScrollController _scrollController = ScrollController();
 
-  // Removing this because we will be getting the value from FutureBuilder directly
-  // double bmiValue = 0;
 
   @override
   void initState() {
@@ -191,25 +189,23 @@ class _MealHomeScreenState extends State<MealHomeScreen>
     print("BMI: ${bmi}: length: ${mealList.length}");
     if (bmi < 18.5) {
       // Underweight
-      return mealList
-          .where((meal) => meal.calories >= 500 && meal.calories <= 1000)
-          .toList();
+      return mealList;  // Recommend all meals
     } else if (bmi >= 18.5 && bmi <= 24.9) {
       // Healthy weight
-
-      return mealList;
+      return mealList;  // Recommend all meals
     } else if (bmi >= 25 && bmi <= 29.9) {
       // Overweight
       return mealList
-          .where((meal) => meal.calories >= 50 && meal.calories <= 600)
+          .where((meal) => meal.calories >= 135 && meal.calories <= 300)
           .toList();
     } else {
       // Obesity
       return mealList
-          .where((meal) => meal.calories >= 50 && meal.calories <= 500)
+          .where((meal) => meal.calories >= 135 && meal.calories <= 266)
           .toList();
     }
   }
+
 
   Widget getTimeDateUI(double bmiValue) {
     return Padding(

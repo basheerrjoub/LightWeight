@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../Ads/BannerAdWidget.dart';
+import '../AppConstants.dart';
 import '../customize/icons.dart';
 import 'svg_asset.dart';
 import '../models/Exercise.dart';
@@ -106,10 +107,10 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                     ],
                   ),
                 ),
-                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
 
                 Container(
-                  height: 50,
+                  height: 80,
                   width: double.infinity,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -152,7 +153,7 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
 
                 SizedBox(height: 30.h),
                 Container(
-                  height: 50,
+                  height: 80,
                   width: double.infinity,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -182,7 +183,7 @@ class _WorkoutsScreenState extends State<WorkoutsScreen> {
                         fontSize: 16.w),
                   ),
                 ),
-                BannerAdWidget(adUnitId: "ca-app-pub-3940256099942544/6300978111", size: 3),
+                BannerAdWidget(adUnitId: AppConstants.adID, size: 3),
                 SizedBox(height: 40.h,),
 
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../Ads/BannerAdWidget.dart';
 import '../../../customize/icons.dart';
 import '../../svg_asset.dart';
 import '../../../models/AppUser.dart';
@@ -105,18 +106,38 @@ class _DetailPageState extends State<MealDetails> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(0xff912b1d),  // Move the color property inside BoxDecoration
+                      color: Color(0xff912b1d),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(30.w),
                         bottomRight: Radius.circular(30.w),
                       ),
-                    ),                    width: double.infinity,
+                    ),
+                    width: double.infinity,
                     height: 220.h,
                     child: Center(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.asset(widget.meal.imageUrl,
-                            width: 200.w, height: 200.h, fit: BoxFit.contain),
+                        borderRadius: BorderRadius.circular(50.0),
+                        child: Container(
+                          width: 330.w,
+                          height: 200.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.6),  // adjust the opacity as needed
+                                spreadRadius: 5,
+                                blurRadius: 50,  // adjust the blur radius for desired effect
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50.0),
+                            child: Image.asset(
+                              widget.meal.imageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -130,7 +151,7 @@ class _DetailPageState extends State<MealDetails> {
                     ),
                   ),
                   SizedBox(height: 15.h),
-                  Center(child: Text(widget.meal.name, style: TextStyle(color: Colors.white, fontSize: 24.sp, fontWeight: FontWeight.bold))),
+                  Center(child: Text(widget.meal.name, textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 24.sp, fontWeight: FontWeight.bold))),
                   SizedBox(height: 10.h),
                   Text(widget.meal.description,textAlign: TextAlign.center, style: TextStyle(color: Colors.white70, fontSize: 18.sp)),
                   SizedBox(height: 10.h),
@@ -239,6 +260,8 @@ class _DetailPageState extends State<MealDetails> {
                     ),
                   ),
                   SizedBox(height: 30.h),
+                  BannerAdWidget(adUnitId: AppConstants.adID, size: 2),
+
                   Text("Steps", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.bold)),
                   SizedBox(height: 10.h),
 
