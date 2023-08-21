@@ -35,8 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
   FormData? selected;
   bool hasLoggedInBefore = false;
 
-  TextEditingController emailController = new TextEditingController(text: "basheer20599@gmail.com");
-  TextEditingController passwordController = new TextEditingController(text: "basheer1234");
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+  bool _isRememberMe = false;
 
   Future<void> markUserAsLoggedIn() async {
 
@@ -101,6 +102,29 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     checkUserLoggedInBefore();
+    _loadSavedData();
+
+  }
+  _loadSavedData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      emailController.text = (prefs.getString('email') ?? "");
+      passwordController.text = (prefs.getString('password') ?? "");
+      _isRememberMe = prefs.getBool('rememberMe') ?? false;
+    });
+  }
+
+  _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (_isRememberMe) {
+      prefs.setString('email', emailController.text);
+      prefs.setString('password', passwordController.text);
+      prefs.setBool('rememberMe', true);
+    } else {
+      prefs.remove('email');
+      prefs.remove('password');
+      prefs.setBool('rememberMe', false);
+    }
   }
 
 
@@ -284,8 +308,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
+                    FadeAnimation(
+                      delay: 1,
+                      child: Row(
+                          children: [
+                            Checkbox(
+                              value: _isRememberMe,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  _isRememberMe = value!;
+                                });
+                              },
+                            ),
+                            Text("Remember me" ,),
+                          ],
+                        ),),
                         FadeAnimation(
                           delay: 1,
                           child: TextButton(
@@ -304,7 +343,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   await getUserData();
                                   markUserAsLoggedIn();
                                   print(AppConstants.currentUser.toString());
-
+                                  _saveData();
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>

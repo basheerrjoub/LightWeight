@@ -273,7 +273,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                       );
                     },
                     title: "Six Days Routine",
-                    subtitle: "One of the Best training shcedules",
+                    subtitle: "Split Workout into six days.",
                     gradientStartColor: Color(0xff911700),
                     gradientEndColor: Color(0x19bdff3a),
                   ),
@@ -315,7 +315,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     },
                     isCardio: true,
                     title: "Cardio Workouts",
-                    subtitle: "10 Days Audio and Video Series",
+                    subtitle: "Don't miss Cardio!",
                     gradientStartColor: Color(0xc31432A7),
                     gradientEndColor: Color(0xc3148ca7),
                   ),
