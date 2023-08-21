@@ -28,6 +28,14 @@ class Favourite extends StatefulWidget {
 
 class _DetailPageState extends State<Favourite> {
   List<Exercise> chestExercises = [];
+  List<Exercise> triecepsExercises = [];
+  List<Exercise> backExercises = [];
+  List<Exercise> bicepsExercises = [];
+  List<Exercise> legsExercises = [];
+  List<Exercise> absExercises = [];
+  List<Exercise> shouldersExercises = [];
+  List<Exercise> forearmsExercises = [];
+  List<String> favouriteIds = [];
 
   Future<List<String>> getFavouriteExerciseIds() async {
     if(AppConstants.isOffline)
@@ -43,7 +51,6 @@ class _DetailPageState extends State<Favourite> {
             .get();
 
         for (DocumentSnapshot doc in snapshot.docs) {
-          // Assuming the document structure has 'exerciseId' as a key for the exercise ID
           favouriteIds.add(doc['exerciseId'] as String);
         }
       }
@@ -56,16 +63,67 @@ class _DetailPageState extends State<Favourite> {
   }
 
   void populateFavouriteChestExercises() async {
-    List<String> favouriteIds = await getFavouriteExerciseIds();
     chestExercises = chestWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
     chestExercises.forEach((element) {print(element.eid);});
     setState(() {});  // Notify the UI to rebuild if this is within a StatefulWidget
   }
 
+  void populateFavouriteTricepsExercises() async {
+    triecepsExercises = tricepsWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    triecepsExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+  void populateFavouriteBackExercises() async {
+    backExercises = backWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    backExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+  void populateFavouriteBicepsExercises() async {
+    bicepsExercises = bicepsWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    bicepsExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+  void populateFavouriteLegsExercises() async {
+    legsExercises = legsWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    legsExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+  void populateFavouriteAbsExercises() async {
+    absExercises = absWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    absExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+
+  void populateFavouriteShouldersExercises() async {
+    shouldersExercises = shouldersExercises.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    shouldersExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+  void populateFavouriteForearmsExercises() async {
+    forearmsExercises = forearmsWorkout.where((exercise) => favouriteIds.contains(exercise.eid)).toList();
+    forearmsExercises.forEach((element) {print(element.eid);});
+    setState(() {});
+  }
+  Future<void> getFavIds() async {
+    favouriteIds = await getFavouriteExerciseIds();
+  }
+
   @override
   void initState() {
     super.initState();
+    _initializeData();
+  }
+
+  void _initializeData()  async {
+    await getFavIds();
     populateFavouriteChestExercises();
+    populateFavouriteTricepsExercises();
+    populateFavouriteBackExercises();
+    populateFavouriteBicepsExercises();
+    populateFavouriteLegsExercises();
+    populateFavouriteAbsExercises();
+    populateFavouriteShouldersExercises();
+    populateFavouriteForearmsExercises();
   }
 
 
@@ -194,7 +252,12 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             DiscoverSmallCard(
-                              onTap: (){},
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Triceps", workout: triecepsExercises, describtion: "The triceps consist of three heads: the long head, lateral head, and medial head. While all heads engage during triceps exercises, certain movements emphasize specific areas. To develop robust triceps, opt for exercises that target all these heads comprehensively, ensuring thorough muscle engagement.",)),
+                                );
+                              },
                               title: "Triceps",
                               gradientStartColor: Color(0xffFC67A7),
                               gradientEndColor: Color(0xffF6815B),
@@ -205,7 +268,11 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             DiscoverSmallCard(
-                              onTap: (){
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Back", workout: backExercises, describtion: "A well-developed, robust back makes a strong impression. Whether your goal is enhanced muscle definition, improved performance in weightlifting, or increased overall well-being, dedicated back training is essential. Properly executed back exercises are key to achieving these objectives effectively.",)),
+                                );
                               },
                               title: "Back",
                               gradientStartColor: Color(0xffFFD541),
@@ -217,7 +284,12 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             DiscoverSmallCard(
-                              onTap: (){},
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Biceps", workout: bicepsExercises, describtion: "Biceps workouts focus on developing the muscles located on the front of your upper arm. These muscles, collectively known as the biceps brachii, play a crucial role in various upper body movements such as lifting, pulling, and bending your arm at the elbow. ",)),
+                                );
+                              },
                               title: "Biceps",
                               gradientStartColor: Color(0xf23ac033),
                               gradientEndColor: Color(0x1141ca33),
@@ -229,7 +301,12 @@ class _DetailPageState extends State<Favourite> {
 
                             ),
                             DiscoverSmallCard(
-                              onTap: (){},
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Legs", workout: legsExercises, describtion: "Training your legs in bodybuilding is crucial for several reasons. While many people tend to focus on working their upper body muscles, neglecting your leg muscles can lead to an imbalanced physique and missed opportunities for overall strength and athleticism. ",)),
+                                );
+                              },
                               title: "Legs",
                               gradientStartColor: Color(0xf23ac033),
                               gradientEndColor: Color(0x1141ca33),
@@ -240,7 +317,12 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             DiscoverSmallCard(
-                              onTap: (){},
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Abs", workout: absExercises, describtion: "Training abs is vital for both health and aesthetics. Strong abdominal muscles stabilize the core, preventing injuries and supporting good posture. Additionally, toned abs are a sought-after physical trait, signifying fitness and vitality.",)),
+                                );
+                              },
                               title: "Abs",
                               gradientStartColor: Color(0x19ffb8ad),
                               gradientEndColor: Color(0xe4ff0044),
@@ -251,7 +333,12 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             DiscoverSmallCard(
-                              onTap: (){},
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Shoulders", workout: shouldersExercises, describtion: "Training your shoulders is crucial for a balanced physique and functional strength. Well-developed shoulders support better posture, facilitate daily movements, and reduce injury risks. Additionally, strong shoulders provide a foundation for other upper body exercises, optimizing overall athletic performance.",)),
+                                );
+                              },
                               title: "Shoulders",
                               gradientStartColor: Color(0xfe0f0133),
                               gradientEndColor: Color(0xFF38A4F3),
@@ -262,7 +349,12 @@ class _DetailPageState extends State<Favourite> {
                               ),
                             ),
                             DiscoverSmallCard(
-                              onTap: (){},
+                              onTap: (){//DetailPage
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>  WorkoutsScreen(workoutName: "Forearms", workout: forearmsExercises, describtion: "Training the forearms is vital for enhancing grip strength, aiding in daily tasks and sports. Additionally, it ensures a balanced aesthetic with the upper arm, promoting overall upper body development.",)),
+                                );
+                              },
                               title: "Forearms",
                               gradientStartColor: Color(0x1141ca33),
                               gradientEndColor: Color(0xbd732733),
@@ -312,9 +404,7 @@ class _DetailPageState extends State<Favourite> {
 
   }
 
-  void onStartButtonPressed() {
 
-  }
 
   void onBackIconTapped() {
     Navigator.pop(context);
